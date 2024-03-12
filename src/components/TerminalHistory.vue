@@ -6,6 +6,7 @@ const history = useState("history");
 const labelRef = ref();
 const inputRef = ref();
 const historyRef = ref();
+const endRef = ref();
 const renderKey = ref(0);
 const divFormatted = ref(false);
 
@@ -26,13 +27,23 @@ onMounted(() => {
       if (inputRef.value) {
         inputRef.value.forEach((el, index) => {
           const elLabel = labelRef.value[index];
-          el.style.left = -elLabel.offsetWidth + "px";
-          el.style.textIndent =
-            el.offsetWidth <= elLabel.offsetWidth + 10
-              ? "0px"
-              : elLabel.offsetWidth + 5 + "px";
-          el.style.marginTop =
-            el.offsetWidth <= elLabel.offsetWidth + 10 ? "20px" : "0px";
+          const indent =
+            el.offsetWidth <=
+            elLabel.children[0].children[3].offsetWidth +
+              elLabel.children[0].children[3].offsetLeft +
+              10;
+          el.style.left = -el.offsetWidth + "px";
+          el.style.textIndent = indent
+            ? "0px"
+            : elLabel.children[0].children[3].offsetWidth +
+              elLabel.children[0].children[3].offsetLeft +
+              5 +
+              "px";
+          el.style.marginTop = indent
+            ? elLabel.children[0].children[3].offsetTop +
+              elLabel.children[0].children[3].offsetHeight +
+              "px"
+            : elLabel.children[0].children[3].offsetTop + "px";
           return el;
         });
       }
@@ -49,13 +60,30 @@ onUpdated(() => {
   if (!divFormatted.value && inputRef.value) {
     inputRef.value.forEach((el, index) => {
       const elLabel = labelRef.value[index];
-      el.style.left = -elLabel.offsetWidth + "px";
-      el.style.textIndent =
-        el.offsetWidth <= elLabel.offsetWidth + 10
-          ? "0px"
-          : elLabel.offsetWidth + 5 + "px";
-      el.style.marginTop =
-        el.offsetWidth <= elLabel.offsetWidth + 10 ? "20px" : "0px";
+      const indent =
+        el.offsetWidth <=
+        elLabel.children[0].children[3].offsetWidth +
+          elLabel.children[0].children[3].offsetLeft +
+          10;
+      el.style.left = -el.offsetWidth + "px";
+      el.style.textIndent = indent
+        ? "0px"
+        : elLabel.children[0].children[3].offsetWidth +
+          elLabel.children[0].children[3].offsetLeft +
+          5 +
+          "px";
+      el.style.marginTop = indent
+        ? elLabel.children[0].children[3].offsetTop +
+          elLabel.children[0].children[3].offsetHeight +
+          "px"
+        : elLabel.children[0].children[3].offsetTop + "px";
+      // el.style.left = -elLabel.offsetWidth + "px";
+      // el.style.textIndent =
+      //   el.offsetWidth <= elLabel.offsetWidth + 10
+      //     ? "0px"
+      //     : elLabel.offsetWidth + 5 + "px";
+      // el.style.marginTop =
+      //   el.offsetWidth <= elLabel.offsetWidth + 10 ? "20px" : "0px";
       return el;
     });
   }
@@ -77,8 +105,12 @@ onUnmounted(() => {
     <section>
       <div v-for="entry in history" :key="entry">
         <div classList="flex flex-row" v-if="entry.command">
-          <div ref="labelRef" id="label" class="flex-shrink z-10">
-            <UserIdentifier />
+          <div
+            ref="labelRef"
+            id="label"
+            class="flex-shrink flex-1 z-10 relative min-w-full max-w-max break-words text-wrap"
+          >
+            <UserIdentifier ref="endRef" />
           </div>
           <div
             ref="inputRef"
@@ -87,7 +119,7 @@ onUnmounted(() => {
             {{ entry.command }}
           </div>
         </div>
-        <div classList="mb-2 leading-[normal]">
+        <div classList="mb-2 ">
           <RenderOutput :output="entry.output" />
         </div>
       </div>

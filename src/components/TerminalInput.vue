@@ -34,6 +34,7 @@ console.log(props);
 const inputRef = ref();
 const labelRef = ref();
 const commandRef = ref();
+const endRef = ref();
 const divFormatted = ref(false);
 const renderKey = ref(0);
 
@@ -45,9 +46,10 @@ const reRender = () => {
 };
 const onChange = (e) => {
   // console.log(history.value, command.value, lastCommandIndex.value, setCommand);
-  // console.log(e);
+  console.log(e);
   // console.log(terminalModal);
   // console.log(terminalModal.value);
+
   const { target } = e;
   target.style.removeProperty("height");
   target.style.padding = "0px";
@@ -83,53 +85,56 @@ let observer;
 
 onMounted(() => {
   observer = new ResizeObserver((entries) => {
-    console.log("entries", entries);
+    // console.log("entries", entries);
     entries.forEach((entry) => {
       // console.log(indentAmount.value, dropInput.value);
       // console.log(labelRef.value, inputRef.value);
-      const cr = entry.contentRect;
-      console.log("Entry: ", entry);
-      console.log("Element: ", entry.target);
-      console.log("Element size: ", cr.width, cr.height);
-      console.log("Element padding: ", cr.top, cr.left);
+      // const cr = entry.contentRect;
+      // console.log("Entry: ", entry);
+      // console.log("Element: ", entry.target);
+      // console.log("Element size: ", cr.width, cr.height);
+      // console.log("Element padding: ", cr.top, cr.left);
       if (inputRef.value) {
         const el = inputRef.value;
         const elLabel = labelRef.value;
-        console.log([el.offsetWidth, elLabel.offsetWidth]);
-        el.style.left = -elLabel.offsetWidth + "px";
-        el.style.textIndent =
-          el.offsetWidth <= elLabel.offsetWidth + 10
-            ? "0px"
-            : elLabel.offsetWidth + 5 + "px";
-        el.style.marginTop =
-          el.offsetWidth <= elLabel.offsetWidth + 10 ? "20px" : "0px";
+        const elLabelEndPoint = endRef.value.endRef;
+        const indent =
+          el.offsetWidth <=
+          elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 10;
+
+        el.style.removeProperty("height");
+        el.style.padding = "0px";
+        el.style.height = el.scrollHeight + "px";
+        el.style.removeProperty("padding");
+
+        el.style.left = -el.offsetWidth + "px";
+        el.style.textIndent = indent
+          ? "0px"
+          : elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 5 + "px";
+        el.style.marginTop = indent
+          ? elLabelEndPoint.offsetTop + elLabelEndPoint.offsetHeight + "px"
+          : elLabelEndPoint.offsetTop + "px";
       }
     });
   });
 
-  console.log([labelRef.value, inputRef.value]);
+  // console.log([labelRef.value, inputRef.value]);
   if (inputRef.value) {
     const el = inputRef.value;
     const elLabel = labelRef.value;
-    console.log([el.offsetWidth, elLabel.offsetWidth]);
-    el.style.left = -elLabel.offsetWidth + "px";
-    el.style.textIndent =
-      el.offsetWidth <= elLabel.offsetWidth + 10
-        ? "0px"
-        : elLabel.offsetWidth + 5 + "px";
-    el.style.marginTop =
-      el.offsetWidth <= elLabel.offsetWidth + 10 ? "20px" : "0px";
+    const elLabelEndPoint = endRef.value.endRef;
+    const indent =
+      el.offsetWidth <=
+      elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 10;
+
+    el.style.left = -el.offsetWidth + "px";
+    el.style.textIndent = indent
+      ? "0px"
+      : elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 5 + "px";
+    el.style.marginTop = indent
+      ? elLabelEndPoint.offsetTop + elLabelEndPoint.offsetHeight + "px"
+      : elLabelEndPoint.offsetTop + "px";
   }
-  // if (labelRef.value && inputRef.value) {
-  //   console.log(labelRef.value, inputRef.value);
-  //   const indentArray = labelRef.value.map((el) => el.offsetWidth);
-  //   // indentAmount.value =
-  //   const dropArray = inputRef.value.map(
-  //     (el, index) => el.offsetWidth <= indentAmount.value[index]
-  //   );
-  //   // dropInput.value =
-  //   console.log(indentArray, dropArray);
-  // }
 
   if (commandRef.value) observer.observe(commandRef.value);
 });
@@ -147,14 +152,19 @@ defineExpose({
 
 <template>
   <div id="terminal-input" ref="commandRef">
-    <section class="flex flex-row max-w-full">
-      <label ref="labelRef" class="flex-shrink z-10">
-        <UserIdentifier />
+    <section class="flex flex-row items-start min-w-full">
+      <label
+        ref="labelRef"
+        for="command-input"
+        class="flex-shrink flex-1 z-10 relative min-w-full break-words text-wrap"
+      >
+        <UserIdentifier ref="endRef" />
       </label>
       <textarea
         ref="inputRef"
+        id="command-input"
         type="text"
-        class="bg-light-background dark:bg-dark-background relative flex-grow min-w-full mr-1 focus:outline-none break-words text-wrap resize-none"
+        class="flex-1 bg-light-background dark:bg-dark-background relative flex-grow min-w-full mr-1 focus:outline-none resize-none break-words text-wrap"
         v-model.trim="terminalModal"
         @input.prevent="onChange"
         @keydown.enter.prevent="onSubmit"
@@ -162,7 +172,8 @@ defineExpose({
         autofocus
         autocomplete="off"
         spellcheck="false"
-      ></textarea>
+      >
+      </textarea>
     </section>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, getCurrentInstance } from "vue";
 import { banner } from "~/utils/commands/command";
-
+// TODO: continue to expand on features, add observer to main containers to check scroll height and add padding/margin if needed
 useHead({
   htmlAttrs: {
     class: "default",
