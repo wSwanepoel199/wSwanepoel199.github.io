@@ -65,7 +65,7 @@ const screenClicked = (e) => {
 
 <template>
   <div
-    class="max-w-full text-light-foreground dark:text-dark-foreground text-sm md:min-w-full md:text-base"
+    class="max-w-full h-screen text-light-foreground dark:text-dark-foreground text-sm md:min-w-full md:text-base"
     @click="screenClicked"
   >
     <main

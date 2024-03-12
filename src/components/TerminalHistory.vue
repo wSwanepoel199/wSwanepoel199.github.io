@@ -7,75 +7,56 @@ const labelRef = ref();
 const inputRef = ref();
 const historyRef = ref();
 const renderKey = ref(0);
-
-const indentAmount = ref([0]);
-const dropInput = ref([false]);
+const divFormatted = ref(false);
 
 const reRender = () => {
   renderKey.value++;
 };
 
-// let observer;
+let observer;
 
 onMounted(() => {
-  // observer = new ResizeObserver((entries) => {
-  //   console.log("entries", entries);
-  //   entries.forEach((entry) => {
-  //     // console.log(indentAmount.value, dropInput.value);
-  //     // console.log(labelRef.value, inputRef.value);
-  //     const cr = entry.contentRect;
-  //     console.log("Entry: ", entry);
-  //     console.log("Element: ", entry.target);
-  //     console.log("Element size: ", cr.width, cr.height);
-  //     console.log("Element padding: ", cr.top, cr.left);
-  //     if (labelRef.value && inputRef.value) {
-  //       indentAmount.value = labelRef.value.map((el) => el.offsetWidth);
-  //       dropInput.value = inputRef.value.map((el, index) => {
-  //         return el.offsetWidth <= indentAmount.value[index] + 10;
-  //       });
-  //     }
-  //   });
-  // });
+  observer = new ResizeObserver((entries) => {
+    entries.forEach((entry) => {
+      // const cr = entry.contentRect;
+      // console.log("Entry: ", entry);
+      // console.log("Element: ", entry.target);
+      // console.log("Element size: ", cr.width, cr.height);
+      // console.log("Element padding: ", cr.top, cr.left);
+      if (inputRef.value) {
+        inputRef.value.forEach((el, index) => {
+          const elLabel = labelRef.value[index];
+          el.style.left = -elLabel.offsetWidth + "px";
+          el.style.textIndent =
+            el.offsetWidth <= elLabel.offsetWidth + 10
+              ? "0px"
+              : elLabel.offsetWidth + 5 + "px";
+          el.style.marginTop =
+            el.offsetWidth <= elLabel.offsetWidth + 10 ? "20px" : "0px";
+          return el;
+        });
+      }
+    });
+  });
   if (history.value.length >= 1) {
-    // console.log(labelRef);
     reRender();
   }
-
-  console.log(labelRef.value, inputRef.value);
-
-  // if (labelRef.value && inputRef.value) {
-  //   console.log(labelRef.value, inputRef.value);
-  //   const indentArray = labelRef.value.map((el) => el.offsetWidth);
-  //   // indentAmount.value =
-  //   const dropArray = inputRef.value.map(
-  //     (el, index) => el.offsetWidth <= indentAmount.value[index]
-  //   );
-  //   // dropInput.value =
-  //   console.log(indentArray, dropArray);
-  // }
 });
 
 onUpdated(() => {
-  // console.log(historyRef.value);
-  // if (historyRef.value && typeof historyRef.value === "HTMLDivElement")
-  //   observer.observe(historyRef.value);
+  if (historyRef.value) observer.observe(historyRef.value);
 
-  console.log(
-    labelRef.value,
-    inputRef.value,
-    indentAmount.value,
-    dropInput.value
-  );
-
-  if (labelRef.value && inputRef.value) {
-    callOnce(() => {
-      console.log(labelRef.value, inputRef.value);
-      const indentArray = labelRef.value.map((el) => el.offsetWidth);
-      indentAmount.value = indentArray;
-      const dropArray = inputRef.value.map(
-        (el, index) => el.offsetWidth <= indentAmount.value[index]
-      );
-      dropInput.value = dropArray;
+  if (!divFormatted.value && inputRef.value) {
+    inputRef.value.forEach((el, index) => {
+      const elLabel = labelRef.value[index];
+      el.style.left = -elLabel.offsetWidth + "px";
+      el.style.textIndent =
+        el.offsetWidth <= elLabel.offsetWidth + 10
+          ? "0px"
+          : elLabel.offsetWidth + 5 + "px";
+      el.style.marginTop =
+        el.offsetWidth <= elLabel.offsetWidth + 10 ? "20px" : "0px";
+      return el;
     });
   }
 });
@@ -83,7 +64,6 @@ onUpdated(() => {
 onUnmounted(() => {
   if (renderKey.value && renderKey.value > 0) renderKey.value = 0;
 });
-console.log(renderKey);
 </script>
 
 <template>
@@ -96,12 +76,14 @@ console.log(renderKey);
   >
     <section>
       <div v-for="entry in history" :key="entry">
-        {{ console.log(entry, indentAmount.value, dropInput.value) }}
-        <div classList="flex flex-row">
-          <div ref="labelRef" id="label" class="flex-shrink z-10 relative">
+        <div classList="flex flex-row" v-if="entry.command">
+          <div ref="labelRef" id="label" class="flex-shrink z-10">
             <UserIdentifier />
           </div>
-          <div ref="inputRef" class="relative input flex-grow min-w-full mr-1">
+          <div
+            ref="inputRef"
+            class="relative flex-grow min-w-full mr-1 break-words"
+          >
             {{ entry.command }}
           </div>
         </div>
@@ -113,14 +95,9 @@ console.log(renderKey);
   </div>
 </template>
 
-<style scoped>
+<style>
 .shrunk {
   margin-top: 20px;
   text-indent: 0;
-}
-.input {
-  word-break: break-word;
-  overflow-wrap: break-word;
-  position: relative;
 }
 </style>
