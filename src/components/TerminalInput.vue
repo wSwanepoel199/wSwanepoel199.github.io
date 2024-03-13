@@ -1,5 +1,6 @@
 <script setup>
-import { shell, checkCommandExists } from "~/utils";
+import { shell, checkCommandExists, handleTabComplete } from "~/utils";
+import { banner } from "~/utils/commands";
 
 const props = defineProps({
   containerRef: {
@@ -114,24 +115,69 @@ const onChange = (e) => {
   setCommand(terminalModal.value);
 };
 const onSubmit = async (e) => {
-  const commands = history.value
-    .map(({ command }) => command.value)
-    .filter((command) => command);
-
   if (!terminalModal.value) return;
-  if (e.ctrlKey && e.key === "c") {
-    e.preventDefault();
-    setCommand("");
-    setHistory("");
-    setLastCommandIndex(0);
-  }
+
   if (e.key === "Enter" || e.keyCode === 13) {
     console.log("submitting", terminalModal.value, [containerRef]);
     setLastCommandIndex(0);
     await shell(command.value, setHistory, clearHistory, setCommand);
-    e.target.value = null;
     containerRef.scrollTo(0, containerRef.scrollHeight);
   }
+  terminalModal.value = command.value;
+};
+
+const onCtrl = async (e) => {
+  if (e.key === "c") {
+    setCommand("");
+    setHistory("");
+    setLastCommandIndex(0);
+  }
+  if (e.key === "l") {
+    clearHistory();
+  }
+  terminalModal.value = command.value;
+  reRender();
+};
+
+const onTab = (e) => {
+  if (e.key === "Tab") {
+    handleTabComplete(command.value, setCommand);
+  }
+  terminalModal.value = command.value;
+  reRender();
+};
+
+const onArrowKeys = (e) => {
+  const commands = history.value
+    .map(({ command }) => command)
+    .filter((command) => command);
+
+  if (e.key === "ArrowUp") {
+    if (!commands.length) {
+      return;
+    }
+    const index = lastCommandIndex.value + 1;
+    if (index <= commands.length) {
+      setLastCommandIndex(index);
+      setCommand(commands[commands.length - index]);
+    }
+  }
+
+  if (e.key === "ArrowDown") {
+    if (!commands.length) {
+      return;
+    }
+    const index = lastCommandIndex.value - 1;
+    if (index > 0) {
+      setLastCommandIndex(index);
+      setCommand(commands[commands.length - index]);
+    } else {
+      setLastCommandIndex(0);
+      setCommand("");
+    }
+  }
+
+  terminalModal.value = command.value;
 };
 
 defineExpose({
@@ -140,7 +186,7 @@ defineExpose({
 </script>
 
 <template>
-  <div id="terminal-input" ref="commandRef">
+  <div :key="renderKey" id="terminal-input" ref="commandRef">
     <section class="flex flex-row items-start min-w-full">
       <label
         ref="labelRef"
@@ -156,9 +202,13 @@ defineExpose({
         class="flex-1 bg-light-background dark:bg-dark-background relative flex-grow min-w-full mr-1 focus:outline-none resize-none break-words text-wrap"
         :class="classObject"
         v-model.trim="terminalModal"
-        @input.prevent="onChange"
+        @keydown.ctrl.c.prevent="onCtrl"
+        @keydown.ctrl.l.prevent="onCtrl"
+        @keydown.tab.prevent="onTab"
         @keydown.enter.prevent="onSubmit"
-        @keydown.ctrl="onSubmit"
+        @keydown.up.prevent="onArrowKeys"
+        @keydown.down.prevent="onArrowKeys"
+        @input.prevent="onChange"
         autofocus
         autocomplete="off"
         spellcheck="false"

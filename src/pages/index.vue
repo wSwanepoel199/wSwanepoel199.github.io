@@ -64,7 +64,7 @@ onUnmounted(() => {
 const screenClicked = (e) => {
   watchEffect(() => {
     // console.log(inputRef.value);
-    if (inputRef.value) {
+    if (inputRef.value?.inputRef) {
       inputRef.value.inputRef.focus();
     }
   });

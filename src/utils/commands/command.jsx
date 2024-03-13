@@ -50,12 +50,12 @@ export const banner = async () => {
         className="whitespace-pre-wrap"
         style={{
           paddingTop: '1rem',
-          gridTemplateRows: 'minmax(2.5rem, 12vmin) 1fr 5rem'
+          gridTemplateRows: 'minmax(2.5rem, 15vmin) 1fr 5rem'
         }}
       >
-        <pre className={``}
+        <pre className={`min-w-max`}
           style={{
-            fontSize: "max(0.2rem, 1.5vmin)",
+            fontSize: "max(0.1rem, 2vmin)",
             lineHeight: 'normal',
           }}
         >

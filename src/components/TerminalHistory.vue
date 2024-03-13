@@ -104,7 +104,7 @@ onUnmounted(() => {
   >
     <section>
       <div v-for="entry in history" :key="entry">
-        <div classList="flex flex-row" v-if="entry.command">
+        <div classList="flex flex-row" v-if="entry.id > 0 || entry.command">
           <div
             ref="labelRef"
             id="label"
@@ -120,7 +120,10 @@ onUnmounted(() => {
           </div>
         </div>
         <div classList="mb-2 ">
-          <RenderOutput :output="entry.output" />
+          <RenderOutput
+            v-if="typeof entry.output === 'object'"
+            :output="entry.output"
+          />
         </div>
       </div>
     </section>
