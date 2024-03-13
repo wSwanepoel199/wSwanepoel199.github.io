@@ -36,12 +36,20 @@ onMounted(async () => {
     setHistory(await banner());
     forceRerender();
   }
+
+  if (containerRef.value.offsetHeight <= containerRef.value.scrollHeight) {
+    containerRef.value.scrollTop = containerRef.value.scrollHeight;
+  }
 });
 
 onUpdated(() => {
   console.log(historyRef.value, history.value);
   if (historyRef.value === 0 && history.value?.length > 0) {
     forceRerender();
+  }
+
+  if (containerRef.value.offsetHeight <= containerRef.value.scrollHeight) {
+    containerRef.value.scrollTop = containerRef.value.scrollHeight;
   }
 });
 
@@ -75,9 +83,10 @@ const screenClicked = (e) => {
         class="h-full border-2 rounded border-light-yellow dark:border-dark-yellow overflow-hidden p-2 sm:p-3 md:p-5"
       >
         <div
+          ref="containerRef"
           class="h-full scrollbar-thin scrollbar-webkit overflow-y-auto overflow-x-hidden"
         >
-          <div ref="containerRef" class="max-w-sm md:max-w-md lg:max-w-lg">
+          <div class="max-w-sm md:max-w-md lg:max-w-lg">
             <TerminalHistory :key="historyRef" />
             <TerminalInput
               v-if="containerRef"

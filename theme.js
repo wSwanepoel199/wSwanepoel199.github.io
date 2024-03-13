@@ -1,6 +1,26 @@
 export default {
   "default": {
     "light": {
+      "background": "#9A9A9A",
+      "foreground": "#0D0D0D",
+      "yellow": "#FFFF00",
+      "green": "#00FF00",
+      "gray": "#090909",
+      "blue": "#0000FF",
+      "red": "#FF0000"
+    },
+    "dark": {
+      "background": "#0A0A0A",
+      "foreground": "#DDDDDD",
+      "yellow": "#F7FF00",
+      "green": "#00FF00",
+      "gray": "#999999",
+      "blue": "#0000FF",
+      "red": "#FF0000"
+    }
+  },
+  "liveterm": {
+    "light": {
       "background": "#FBF1C9",
       "foreground": "#3C3836",
       "yellow": "#D79921",

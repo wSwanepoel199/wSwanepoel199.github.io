@@ -1,5 +1,5 @@
 <script setup>
-import { shell } from "~/utils/shell";
+import { shell, checkCommandExists } from "~/utils";
 
 const props = defineProps({
   containerRef: {
@@ -30,42 +30,95 @@ const history = useState("history");
 const command = useState("command");
 const lastCommandIndex = useState("lastCommandIndex");
 
-console.log(props);
+const [terminalModal, modifier] = defineModel("input");
+
 const inputRef = ref();
 const labelRef = ref();
 const commandRef = ref();
 const endRef = ref();
 const divFormatted = ref(false);
 const renderKey = ref(0);
+const commandCheckRef = ref(checkCommandExists(terminalModal.value));
 
-const [terminalModal, modifier] = defineModel("input");
-console.log(terminalModal);
+const classObject = computed(() => ({
+  "text-light-green dark:text-dark-green": commandCheckRef.value,
+  "text-light-foreground dark:text-dark-foreground":
+    !commandCheckRef.value || command.value === "",
+}));
 
 const reRender = () => {
   renderKey.value++;
 };
-const onChange = (e) => {
-  // console.log(history.value, command.value, lastCommandIndex.value, setCommand);
-  console.log(e);
-  // console.log(terminalModal);
-  // console.log(terminalModal.value);
 
+const setElDimentions = (el) => {
+  el.style.removeProperty("height");
+  el.style.padding = "0px";
+  el.style.height = el.scrollHeight + "px";
+  el.style.removeProperty("padding");
+};
+
+const setCommandWrap = (el, elLabelEndPoint) => {
+  const indent =
+    el.offsetWidth <=
+    elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 10;
+
+  el.style.left = -el.offsetWidth + "px";
+  el.style.textIndent = indent
+    ? "0px"
+    : elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 5 + "px";
+  el.style.marginTop = indent
+    ? elLabelEndPoint.offsetTop + elLabelEndPoint.offsetHeight + "px"
+    : elLabelEndPoint.offsetTop + "px";
+};
+
+let observer;
+
+onMounted(() => {
+  observer = new ResizeObserver((entries) => {
+    entries.forEach(async (entry) => {
+      if (inputRef.value) {
+        const el = inputRef.value;
+        const elLabel = labelRef.value;
+        const elLabelEndPoint =
+          endRef.value.endRef || elLabel.children[0].children[3];
+
+        setElDimentions(el);
+        setCommandWrap(el, elLabelEndPoint);
+      }
+    });
+  });
+
+  if (inputRef.value) {
+    const el = inputRef.value;
+    const elLabel = labelRef.value;
+    const elLabelEndPoint =
+      endRef.value.endRef || elLabel.children[0].children[3];
+
+    setElDimentions(el);
+    setCommandWrap(el, elLabelEndPoint);
+  }
+
+  if (commandRef.value) observer.observe(commandRef.value);
+});
+
+onUpdated(() => {
+  commandCheckRef.value = checkCommandExists(terminalModal.value);
+
+  if (commandRef.value) observer.observe(commandRef.value);
+  containerRef.scrollTo(0, containerRef.scrollHeight);
+});
+
+const onChange = (e) => {
   const { target } = e;
-  target.style.removeProperty("height");
-  target.style.padding = "0px";
-  target.style.height = target.scrollHeight + "px";
-  target.style.removeProperty("padding");
+  setElDimentions(target);
   setCommand(terminalModal.value);
 };
 const onSubmit = async (e) => {
-  // console.log(e);
   const commands = history.value
     .map(({ command }) => command.value)
     .filter((command) => command);
 
-  console.log(commands, history.value);
   if (!terminalModal.value) return;
-  console.log(terminalModal.value);
   if (e.ctrlKey && e.key === "c") {
     e.preventDefault();
     setCommand("");
@@ -76,74 +129,10 @@ const onSubmit = async (e) => {
     console.log("submitting", terminalModal.value, [containerRef]);
     setLastCommandIndex(0);
     await shell(command.value, setHistory, clearHistory, setCommand);
-    window.scrollTo(0, containerRef.scrollHeight);
     e.target.value = null;
+    containerRef.scrollTo(0, containerRef.scrollHeight);
   }
 };
-
-let observer;
-
-onMounted(() => {
-  observer = new ResizeObserver((entries) => {
-    // console.log("entries", entries);
-    entries.forEach((entry) => {
-      // console.log(indentAmount.value, dropInput.value);
-      // console.log(labelRef.value, inputRef.value);
-      // const cr = entry.contentRect;
-      // console.log("Entry: ", entry);
-      // console.log("Element: ", entry.target);
-      // console.log("Element size: ", cr.width, cr.height);
-      // console.log("Element padding: ", cr.top, cr.left);
-      if (inputRef.value) {
-        const el = inputRef.value;
-        const elLabel = labelRef.value;
-        const elLabelEndPoint = endRef.value.endRef;
-        const indent =
-          el.offsetWidth <=
-          elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 10;
-
-        el.style.removeProperty("height");
-        el.style.padding = "0px";
-        el.style.height = el.scrollHeight + "px";
-        el.style.removeProperty("padding");
-
-        el.style.left = -el.offsetWidth + "px";
-        el.style.textIndent = indent
-          ? "0px"
-          : elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 5 + "px";
-        el.style.marginTop = indent
-          ? elLabelEndPoint.offsetTop + elLabelEndPoint.offsetHeight + "px"
-          : elLabelEndPoint.offsetTop + "px";
-      }
-    });
-  });
-
-  // console.log([labelRef.value, inputRef.value]);
-  if (inputRef.value) {
-    const el = inputRef.value;
-    const elLabel = labelRef.value;
-    const elLabelEndPoint = endRef.value.endRef;
-    const indent =
-      el.offsetWidth <=
-      elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 10;
-
-    el.style.left = -el.offsetWidth + "px";
-    el.style.textIndent = indent
-      ? "0px"
-      : elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 5 + "px";
-    el.style.marginTop = indent
-      ? elLabelEndPoint.offsetTop + elLabelEndPoint.offsetHeight + "px"
-      : elLabelEndPoint.offsetTop + "px";
-  }
-
-  if (commandRef.value) observer.observe(commandRef.value);
-});
-
-onUpdated(() => {
-  if (commandRef.value) observer.observe(commandRef.value);
-
-  console.log(inputRef.value);
-});
 
 defineExpose({
   inputRef,
@@ -165,6 +154,7 @@ defineExpose({
         id="command-input"
         type="text"
         class="flex-1 bg-light-background dark:bg-dark-background relative flex-grow min-w-full mr-1 focus:outline-none resize-none break-words text-wrap"
+        :class="classObject"
         v-model.trim="terminalModal"
         @input.prevent="onChange"
         @keydown.enter.prevent="onSubmit"
