@@ -1,6 +1,6 @@
 <script setup>
 import { ref, getCurrentInstance } from "vue";
-import { banner } from "~/utils/commands/command";
+import { banner } from "~/utils/commands";
 // TODO: continue to expand on features, add observer to main containers to check scroll height and add padding/margin if needed
 useHead({
   htmlAttrs: {
@@ -38,18 +38,24 @@ onMounted(async () => {
   }
 
   if (containerRef.value.offsetHeight <= containerRef.value.scrollHeight) {
-    containerRef.value.scrollTop = containerRef.value.scrollHeight;
+    containerRef.value.style.paddingRight = "20px";
+    containerRef.value.scrollTo(0, containerRef.value.scrollHeight);
+  } else if (containerRef.value.style.paddingRight) {
+    containerRef.value.style.removeProperty("paddingRight");
   }
 });
 
 onUpdated(() => {
   console.log(historyRef.value, history.value);
-  if (historyRef.value === 0 && history.value?.length > 0) {
-    forceRerender();
-  }
+  // if (historyRef.value === 0 && history.value?.length > 0) {
+  //   forceRerender();
+  // }
 
   if (containerRef.value.offsetHeight <= containerRef.value.scrollHeight) {
-    containerRef.value.scrollTop = containerRef.value.scrollHeight;
+    containerRef.value.style.paddingRight = "20px";
+    containerRef.value.scrollTo(0, containerRef.value.scrollHeight);
+  } else if (containerRef.value.style.paddingRight) {
+    containerRef.value.style.removeProperty("paddingRight");
   }
 });
 

@@ -1,6 +1,9 @@
 <script setup>
 const title = "Nuxt Terminal App";
 const viewport = "width=device-width,initial-scale=1.0";
+useSeoMeta({
+  resume_will: "/resume_will.pdf",
+});
 </script>
 
 <template>

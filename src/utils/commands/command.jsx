@@ -3,7 +3,8 @@ import font from 'figlet/importable-fonts/DOS Rebel';
 import * as commandList from './index';
 import { Fragment } from 'vue/jsx-runtime';
 const config = {
-  repo: ''
+  repo: '',
+  name: 'Will'
 };
 
 
@@ -14,9 +15,9 @@ export const help = async () => {
       <div className="whitespace-pre-wrap flex flex-col">
         <span>{`Welcome! The available commands are:`}</span>
         <br />
-        <span className="ml-5">{`${commands}`}</span>
+        <span className="ml-4">{`${commands}`}</span>
         <br />
-        <span>{`[tab]: trigger completion.\n[ctrl+l]/clear: clear terminal.\n`}</span>
+        <span>{`[tab]: trigger completion.\n[ctrl+l] or clear: clear terminal.\n`}</span>
         <span>{`Type 'sumfetch' to display summary.`}</span>
       </div>
     </Fragment>
@@ -87,3 +88,33 @@ export const banner = async () => {
     </Fragment>
   );
 };
+
+export const about = () => {
+
+  return (
+    <Fragment>
+      <div className="flex flex-col">
+        <span>{`Hello, I am ${config.name}, and welcome to my portfolio!`}</span>
+        <span>{`To learn more about me, try one of the following commands:`}</span>
+        <br />
+        <div className="ml-4 flex flex-col">
+          <span>{`'fetchsum' - returns a summary of my details.`}</span>
+          {/* <span>{`'resume' - returns my most up to date resume.`}</span> */}
+          <span>{`'readme' - returns my github README`}</span>
+        </div>
+        <br />
+        <span>{`If you haven't, try 'help' to view all available commands.`}</span>
+      </div>
+    </Fragment>
+  );
+};
+
+// export const resume = () => {
+//   window.open('/resume_will.pdf', '_blank');
+//   return (
+//     <Fragment>
+//       <span>{`Opening resume...`}</span>
+//     </Fragment>
+//   );
+// };
+

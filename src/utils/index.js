@@ -1,3 +1,3 @@
 export * from './checkCommandExists';
-export * from './shell';
+export * from './shell.jsx';
 export * from './tabCompletion';
