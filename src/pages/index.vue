@@ -2,11 +2,19 @@
 import { ref, getCurrentInstance } from "vue";
 import { banner } from "~/utils/commands";
 // TODO: continue to expand on features, add observer to main containers to check scroll height and add padding/margin if needed
+const theme = computed(() =>
+  useCookie("theme", {
+    default: () => "default",
+    watch: "shallow",
+  })
+);
+
 useHead({
   htmlAttrs: {
-    class: "default",
+    class: theme.value,
   },
 });
+
 const inputRef = ref();
 const historyRef = ref(0);
 const containerRef = ref();
