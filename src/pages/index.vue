@@ -60,7 +60,7 @@ onUpdated(() => {
   // }
 
   if (containerRef.value.offsetHeight <= containerRef.value.scrollHeight) {
-    containerRef.value.style.paddingRight = "20px";
+    containerRef.value.style.paddingRight = "10px";
     containerRef.value.scrollTo(0, containerRef.value.scrollHeight);
   } else if (containerRef.value.style.paddingRight) {
     containerRef.value.style.removeProperty("paddingRight");
@@ -100,7 +100,7 @@ const screenClicked = (e) => {
           ref="containerRef"
           class="h-full scrollbar-thin scrollbar-webkit overflow-y-auto overflow-x-hidden"
         >
-          <div class="max-w-sm md:max-w-md lg:max-w-lg">
+          <div class="max-w-full xl:max-w-2xl">
             <TerminalHistory :key="historyRef" />
             <TerminalInput
               v-if="containerRef"

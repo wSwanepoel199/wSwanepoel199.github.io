@@ -6,16 +6,13 @@ export default defineNuxtConfig({
   rootDir: ".",
   runtimeConfig: {},
   css: ["~/assets/css/main.css"],
-
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
-
   modules: ["@nuxtjs/tailwindcss"],
-
   vue: {
     compilerOptions: {
       isCustomElement: (tag) => ["renderOutput"].includes(tag),

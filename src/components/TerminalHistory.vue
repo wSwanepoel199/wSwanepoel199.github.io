@@ -1,7 +1,4 @@
 <script setup lang="jsx">
-import { render } from "vue";
-import { Fragment } from "vue/jsx-runtime";
-
 const history = useState("history");
 const labelRef = ref();
 const inputRef = ref();
@@ -16,6 +13,20 @@ const reRender = () => {
 
 let observer;
 
+const setCommandWrap = (el, elLabelEndPoint) => {
+  const indent =
+    el.offsetWidth <=
+    elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 10;
+
+  el.style.left = -el.offsetWidth + "px";
+  el.style.textIndent = indent
+    ? "0px"
+    : elLabelEndPoint.offsetWidth + elLabelEndPoint.offsetLeft + 5 + "px";
+  el.style.marginTop = indent
+    ? elLabelEndPoint.offsetTop + elLabelEndPoint.offsetHeight + "px"
+    : elLabelEndPoint.offsetTop + "px";
+};
+
 onMounted(() => {
   observer = new ResizeObserver((entries) => {
     entries.forEach((entry) => {
@@ -27,23 +38,8 @@ onMounted(() => {
       if (inputRef.value) {
         inputRef.value.forEach((el, index) => {
           const elLabel = labelRef.value[index];
-          const indent =
-            el.offsetWidth <=
-            elLabel.children[0].children[3].offsetWidth +
-              elLabel.children[0].children[3].offsetLeft +
-              10;
-          el.style.left = -el.offsetWidth + "px";
-          el.style.textIndent = indent
-            ? "0px"
-            : elLabel.children[0].children[3].offsetWidth +
-              elLabel.children[0].children[3].offsetLeft +
-              5 +
-              "px";
-          el.style.marginTop = indent
-            ? elLabel.children[0].children[3].offsetTop +
-              elLabel.children[0].children[3].offsetHeight +
-              "px"
-            : elLabel.children[0].children[3].offsetTop + "px";
+
+          setCommandWrap(el, elLabel.children[0].children[3]);
           return el;
         });
       }
@@ -60,30 +56,9 @@ onUpdated(() => {
   if (!divFormatted.value && inputRef.value) {
     inputRef.value.forEach((el, index) => {
       const elLabel = labelRef.value[index];
-      const indent =
-        el.offsetWidth <=
-        elLabel.children[0].children[3].offsetWidth +
-          elLabel.children[0].children[3].offsetLeft +
-          10;
-      el.style.left = -el.offsetWidth + "px";
-      el.style.textIndent = indent
-        ? "0px"
-        : elLabel.children[0].children[3].offsetWidth +
-          elLabel.children[0].children[3].offsetLeft +
-          5 +
-          "px";
-      el.style.marginTop = indent
-        ? elLabel.children[0].children[3].offsetTop +
-          elLabel.children[0].children[3].offsetHeight +
-          "px"
-        : elLabel.children[0].children[3].offsetTop + "px";
-      // el.style.left = -elLabel.offsetWidth + "px";
-      // el.style.textIndent =
-      //   el.offsetWidth <= elLabel.offsetWidth + 10
-      //     ? "0px"
-      //     : elLabel.offsetWidth + 5 + "px";
-      // el.style.marginTop =
-      //   el.offsetWidth <= elLabel.offsetWidth + 10 ? "20px" : "0px";
+
+      setCommandWrap(el, elLabel.children[0].children[3]);
+
       return el;
     });
   }
