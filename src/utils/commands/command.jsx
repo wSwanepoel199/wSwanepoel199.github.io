@@ -1,5 +1,5 @@
 import figlet from 'figlet';
-import font from 'figlet/importable-fonts/DOS Rebel';
+// import font from 'figlet/importable-fonts/DOS Rebel';
 import * as commandList from './index';
 import { Fragment } from 'vue/jsx-runtime';
 import themes from '../../../theme';
@@ -31,11 +31,13 @@ export const help = async () => {
   );
 };
 
-export const banner = async () => {
-  figlet.parseFont("DOS Rebel", font);
+const bannerGen = async (args = ['DOS Rebel', "Portfolio\nTerminal"]) => {
+  const font = await $fetch('/api/getFonts', { method: 'POST', body: args });
+
+  figlet.parseFont(args[0], font);
 
   const bannerText = await figlet.text(
-    "Portfolio\nTerminal",
+    args[1],
     {
       font: "DOS Rebel",
       horizontalLayout: "fitted",
@@ -95,6 +97,51 @@ export const banner = async () => {
       </div>
     </Fragment>
   );
+};
+
+export const banner = async (args = []) => {
+
+  if (args.length === 0) {
+    const banner = await bannerGen(['DOS Rebel', "Portfolio\nTerminal"]);
+    return banner;
+  }
+
+  const validOptions = ['--help', '--text', '--font'];
+
+  if (args.includes('--help')) {
+    return (<Fragment>
+      <div className="whitespace-pre-wrap flex flex-col">
+        <span>{`Welcome to Banner! These are the available commands that can be used:`}</span>
+        <br />
+        <span className="ml-4 max-w-sm">{`${validOptions.join(', ')}`}</span>
+        <br />
+        <span className="whitespace-pre-wrap">{`Entering 'banner --text=<text>' will alter the banners text, and 'banner --font=<font>' will alter the font`}</span>
+      </div>
+    </Fragment>);
+  }
+  const argsValSplit = args.map((arg) => {
+    console.log(arg);
+    const argSplit = arg.split('=');
+    console.log(argSplit);
+    if (!validOptions.includes(argSplit[0])) {
+      return;
+    }
+    if (!argSplit.length > 1) {
+      return argSplit.push('');
+    }
+    return argSplit;
+  });
+  console.log(argsValSplit[0][1]);
+  if (argsValSplit[0][0] === '--text' && argsValSplit[0].length < 2) {
+    return (
+      <Fragment>
+        <div>
+          {`No banner text provided. Please enter 'banner --text=<text>' where <text> is the text you would like to display.`}
+        </div>
+      </Fragment>
+    );
+  }
+
 };
 
 export const about = async () => {
