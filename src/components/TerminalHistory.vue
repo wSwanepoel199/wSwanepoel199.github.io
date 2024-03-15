@@ -30,11 +30,6 @@ const setCommandWrap = (el, elLabelEndPoint) => {
 onMounted(() => {
   observer = new ResizeObserver((entries) => {
     entries.forEach((entry) => {
-      // const cr = entry.contentRect;
-      // console.log("Entry: ", entry);
-      // console.log("Element: ", entry.target);
-      // console.log("Element size: ", cr.width, cr.height);
-      // console.log("Element padding: ", cr.top, cr.left);
       if (inputRef.value) {
         inputRef.value.forEach((el, index) => {
           const elLabel = labelRef.value[index];

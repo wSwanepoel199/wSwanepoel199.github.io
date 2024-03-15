@@ -91,7 +91,6 @@ export const banner = async (args = []) => {
   }
 
   const argWithInput = args.join(' ').split('--').map((arg) => {
-    console.log(arg);
     const argSplit = arg.split('=');
     if (!validOptions.includes('--' + argSplit[0])) {
       return;
@@ -101,7 +100,6 @@ export const banner = async (args = []) => {
     }
     return argSplit;
   });
-  console.log(argWithInput);
   const bannerSettings = {};
   let errorTriggered = false;
   argWithInput.forEach((arg, index) => {

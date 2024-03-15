@@ -23,14 +23,6 @@ const history = useState("history");
 const command = useState("command");
 const lastCommandIndex = useState("lastCommandIndex");
 
-// const history = useState("history", () => [
-//   { command: "this" },
-//   { command: "is" },
-//   { command: "a" },
-//   { command: "test" },
-//   { command: "history" },
-// ]);
-
 const { setCommand, setHistory, setLastCommandIndex, clearHistory } =
   useHistory([]);
 
@@ -39,7 +31,6 @@ const forceRerender = () => {
 };
 
 onMounted(async () => {
-  console.log("calling after history check");
   if (history.value?.length === 0) {
     setHistory(await banner());
     forceRerender();
@@ -54,7 +45,6 @@ onMounted(async () => {
 });
 
 onUpdated(() => {
-  console.log(historyRef.value, history.value);
   // if (historyRef.value === 0 && history.value?.length > 0) {
   //   forceRerender();
   // }
@@ -71,13 +61,8 @@ onUnmounted(() => {
   if (historyRef.value > 0) historyRef.value = 0;
 });
 
-// onUpdated(() => {
-//   console.log(history);
-// });
-
 const screenClicked = (e) => {
   watchEffect(() => {
-    // console.log(inputRef.value);
     if (inputRef.value?.inputRef) {
       inputRef.value.inputRef.focus();
     }

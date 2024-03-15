@@ -12,6 +12,5 @@ export default defineEventHandler(async (e) => {
     return font;
   }
 
-  return 'test';
-  // console.log(data);
+  return 'No font';
 });

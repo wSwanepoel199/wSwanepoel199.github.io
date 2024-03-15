@@ -8,14 +8,12 @@ export const useHistory = (defaultValues = []) => {
   const setHistory = (value) => {
     const history = useState("history");
     const command = useState('command');
-    // console.log(history.value.length, history.value, command);
     history.value.push({
       id: history.value.length,
       date: new Date(),
       command: command.value,
       output: value,
     });
-    // console.log(history.value.length, history.value, command);
   };
   const clearHistory = () => {
     const history = useState("history");
@@ -23,7 +21,6 @@ export const useHistory = (defaultValues = []) => {
   };
   const setCommand = (value) => {
     const command = useState("command");
-    // console.log(value);
     command.value = value;
   };
   const setLastCommandIndex = (index) => {

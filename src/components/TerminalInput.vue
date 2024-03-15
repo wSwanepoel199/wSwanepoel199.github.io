@@ -118,7 +118,6 @@ const onSubmit = async (e) => {
   if (!terminalModal.value) return;
 
   if (e.key === "Enter" || e.keyCode === 13) {
-    console.log("submitting", terminalModal.value, [containerRef]);
     setLastCommandIndex(0);
     await shell(command.value, setHistory, clearHistory, setCommand);
     containerRef.scrollTo(0, containerRef.scrollHeight);
