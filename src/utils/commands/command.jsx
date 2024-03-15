@@ -31,15 +31,14 @@ export const help = async () => {
   );
 };
 
-const bannerGen = async (args = ['DOS Rebel', "Portfolio\nTerminal"]) => {
-  const font = await $fetch('/api/getFonts', { method: 'POST', body: args });
-
-  figlet.parseFont(args[0], font);
+const bannerGen = async ({ font = 'DOS Rebel', text = 'Portfolio\n Terminal' } = {}) => {
+  const fontFile = await $fetch('/api/getFonts', { method: 'POST', body: { font } });
+  figlet.parseFont(font, fontFile);
 
   const bannerText = await figlet.text(
-    args[1],
+    text?.replace(/\\n/g, '\n'),
     {
-      font: "DOS Rebel",
+      font: font,
       horizontalLayout: "fitted",
       verticalLayout: "fitted",
     },
@@ -100,14 +99,12 @@ const bannerGen = async (args = ['DOS Rebel', "Portfolio\nTerminal"]) => {
 };
 
 export const banner = async (args = []) => {
-
+  const bannerCookie = useCookie('banner');
   if (args.length === 0) {
-    const banner = await bannerGen(['DOS Rebel', "Portfolio\nTerminal"]);
+    const banner = await bannerGen(bannerCookie.value);
     return banner;
   }
-
-  const validOptions = ['--help', '--text', '--font'];
-
+  const validOptions = ['--help', '--text', '--font', '--set'];
   if (args.includes('--help')) {
     return (<Fragment>
       <div className="whitespace-pre-wrap flex flex-col">
@@ -115,32 +112,90 @@ export const banner = async (args = []) => {
         <br />
         <span className="ml-4 max-w-sm">{`${validOptions.join(', ')}`}</span>
         <br />
-        <span className="whitespace-pre-wrap">{`Entering 'banner --text=<text>' will alter the banners text, and 'banner --font=<font>' will alter the font`}</span>
+        <span className="whitespace-pre-wrap">{`Entering 'banner --text=<text>' will alter the banners text. \nEntering 'banner --font=<font>' will alter the font.\nEntering 'banner --set' will save the current banner as default, \nalternatively 'banner --set=false' will reset the banner`}</span>
       </div>
     </Fragment>);
   }
-  const argsValSplit = args.map((arg) => {
+
+  const argWithInput = args.join(' ').split('--').map((arg) => {
     console.log(arg);
     const argSplit = arg.split('=');
-    console.log(argSplit);
-    if (!validOptions.includes(argSplit[0])) {
+    if (!validOptions.includes('--' + argSplit[0])) {
       return;
     }
-    if (!argSplit.length > 1) {
-      return argSplit.push('');
+    if (argSplit.length <= 1) {
+      argSplit.push(undefined);
     }
     return argSplit;
   });
-  console.log(argsValSplit[0][1]);
-  if (argsValSplit[0][0] === '--text' && argsValSplit[0].length < 2) {
+  console.log(argWithInput);
+  const bannerSettings = {};
+  let errorTriggered = false;
+  argWithInput.forEach((arg, index) => {
+    if (!arg || !arg[0]) {
+      return;
+    }
+    switch (arg[0]) {
+      case 'text': {
+        if (!arg[1] || arg[1] === ' ') {
+          errorTriggered = '--text';
+          return;
+        }
+        bannerSettings.text = arg[1].trim();
+        return;
+      }
+      case 'font': {
+        if (!arg[1] || arg[1] === ' ') {
+          errorTriggered = '--font';
+          return;
+        }
+        bannerSettings.font = arg[1].trim();
+        return;
+      }
+      case 'set': {
+        if (arg[1] === 'false') {
+          bannerSettings.reset = true;
+          return;
+        }
+        bannerSettings.saveBanner = true;
+        return;
+      }
+      default: {
+        return;
+      }
+    }
+  });
+
+  if (errorTriggered === '--text') {
     return (
       <Fragment>
         <div>
-          {`No banner text provided. Please enter 'banner --text=<text>' where <text> is the text you would like to display.`}
+          <span className="whitespace-pre-wrap">{`No text was provided. \nPlease do not use the '--text' option if no text will be provided`}</span>
+          <br />
         </div>
       </Fragment>
     );
   }
+  if (errorTriggered === '--font') {
+    const fonts = await $fetch('/api/getFonts');
+    return (
+      <Fragment>
+        <div>
+          <span className="whitespace-pre-wrap">{`No font was provided. Please select from the following fonts:`}</span>
+          <br /><br />
+          <span>{fonts.join(', ')}</span>
+        </div>
+      </Fragment>
+    );
+  }
+
+  if (bannerSettings.saveBanner) {
+    bannerCookie.value = bannerSettings;
+  }
+  if (bannerSettings.reset) {
+    bannerCookie.value = null;
+  }
+  return await bannerGen(bannerSettings);
 
 };
 
