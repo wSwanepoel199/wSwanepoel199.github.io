@@ -43,7 +43,7 @@ const bannerGen = async ({ font = 'DOS Rebel', text = 'Portfolio\n Terminal' } =
         >
           {bannerText}
         </pre>
-        <a className="text-xs">{`inpired by Cveinnt's Liveterm`}</a>
+        <a className="text-[10px]">{`inpired by Cveinnt's Liveterm`}</a>
       </div>
       <div
         className="whitespace-pre-wrap text-xs sm:text-sm md:text-base w-fill max-w-full"
