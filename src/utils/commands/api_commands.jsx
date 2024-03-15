@@ -34,7 +34,6 @@ export const projects = async () => {
               <li>
                 <span className='text-light-foreground dark:text-dark-foreground '>
                   {project.name} - <a className="text-light-blue dark:text-dark-blue underline flex-grow-0" href={project.html_url} target="_blank">{project.html_url}</a></span>
-
               </li>
             );
           })}
