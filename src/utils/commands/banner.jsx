@@ -5,9 +5,20 @@ const config = {
 };
 
 const bannerGen = async ({ font = 'DOS Rebel', text = 'Portfolio\n Terminal' } = {}) => {
-  const fontFile = await $fetch('/api/getFonts', { method: 'POST', body: { font } });
-  figlet.parseFont(font, fontFile);
-
+  // const fontFile = await $fetch('/api/getFonts', { method: 'POST', body: { font } });
+  // figlet.parseFont(font, fontFile);
+  // figlet.fontsSync();
+  figlet.preloadFonts([font]);
+  // const fonts = figlet.loadFont(font, (err, font) => {
+  //   if (err) {
+  //     console.log("something went wrong...");
+  //     console.dir(err);
+  //     return;
+  //   }
+  //   console.dir(font);
+  //   return font;
+  // });
+  // console.log(fonts);
   const bannerText = await figlet.text(
     text?.replace(/\\n/g, '\n'),
     {
@@ -17,7 +28,7 @@ const bannerGen = async ({ font = 'DOS Rebel', text = 'Portfolio\n Terminal' } =
     },
     function (err, data) {
       if (err) {
-        console.log("Something went wrong...");
+        // console.log("Something went wrong...");
         console.dir(err);
         return;
       }
