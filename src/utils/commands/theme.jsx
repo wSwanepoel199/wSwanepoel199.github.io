@@ -6,12 +6,14 @@ export const theme = async (options) => {
     case optionsAvailable[0]: {
       return (
         <>
-          <div className='whitespace-pre-wrap text-xs sm:text-sm md:text-base'>
-            {`Welcome to Theme!\nTheme allows you to alter the appearance of the terminal by selecting from a list of themes.
-\nHere are all the available options that you can use:
-\n  ${optionsAvailable.join(', ')}\n
-[tab]: trigger completion.
-[ctrl+l]/clear: clear terminal.\n`}
+          <div className='whitespace-pre-wrap text-xs sm:text-sm md:text-base flex flex-col'>
+            <span>{`Welcome to Theme!\nTheme allows you to alter the appearance of the terminal by selecting from a list of themes.`}</span>
+            <br />
+            <span>{`Here are all the available options that you can use:`}</span>
+            <br />
+            <span className='pl-4 max-w-sm'>{`  ${optionsAvailable.join(', ')}`}</span>
+            <br />
+            <span>{`[tab]: trigger completion.\n[ctrl+l]/clear: clear terminal.`}</span>
           </div>
         </>
       );
