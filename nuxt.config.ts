@@ -4,6 +4,13 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   srcDir: "src/",
   rootDir: "./",
+  runtimeConfig: {
+    app: {
+      baseURL: "/",
+      buildAssetsDir: "/_nuxt/",
+      cdnURL: "",
+    },
+  },
   css: ["~/assets/css/main.css"],
   postcss: {
     plugins: {
