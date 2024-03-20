@@ -18,7 +18,7 @@ jobs:
           cache: "npm"
       # Pick your own package manager and build script
       - run: npm install
-          npm run generate
+      - run: npm run generate
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
