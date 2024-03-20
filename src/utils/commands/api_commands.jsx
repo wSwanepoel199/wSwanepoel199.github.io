@@ -1,9 +1,13 @@
 import { Fragment } from "vue/jsx-runtime";
 import markdownit from 'markdown-it';
+import axios from "axios";
 
 
 export const readme = async () => {
-  const data = await $fetch('/api/getReadme');
+  const config = await import('../config.json');
+  const data = await $fetch('/api/getReadme')
+    .catch(err =>
+      axios.get(config.GITHUB_README_URL).then(res => res.data));
   const md = markdownit('commonmark', {
     linkify: true,
     typographer: true,
@@ -22,7 +26,10 @@ export const readme = async () => {
 };
 
 export const projects = async () => {
-  const data = await $fetch('/api/getProjects');
+  const config = await import('../config.json');
+  const data = await $fetch('/api/getProjects')
+    .catch(err =>
+      axios.get(config.GITHUB_REPOSITORIES_URL).then(res => res.data));
 
   return (
     <Fragment>

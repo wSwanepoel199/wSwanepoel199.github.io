@@ -20,7 +20,8 @@ export const help = async () => {
 };
 
 export const about = async () => {
-  const config = await $fetch('/api/getRuntimeConfig');
+  const config = await $fetch('/api/getRuntimeConfig').catch(err =>
+    import('../config.json'));
   return (
     <Fragment>
       <div className="flex flex-col">
@@ -40,7 +41,8 @@ export const about = async () => {
 };
 
 export const repo = async () => {
-  const config = await $fetch('/api/getRuntimeConfig');
+  const config = await $fetch('/api/getRuntimeConfig').catch(err =>
+    import('../config.json'));
   window.open(config.GITHUB_REPO, '_blank');
   return (
     <Fragment>
@@ -61,7 +63,8 @@ export const repo = async () => {
 // };
 
 export const email = async () => {
-  const config = await $fetch('/api/getRuntimeConfig');
+  const config = await $fetch('/api/getRuntimeConfig').catch(err =>
+    import('../config.json'));
   window.open(`mailto:${config.EMAIL}`, '_blank');
   return (
     <Fragment>
@@ -82,7 +85,8 @@ export const liveterm = async () => {
 };
 
 export const github = async () => {
-  const config = await $fetch('/api/getRuntimeConfig');
+  const config = await $fetch('/api/getRuntimeConfig').catch(err =>
+    import('../config.json'));
   window.open(`https://github.com/${config.GITHUB}/`, '_blank');
   return (
     <Fragment>
@@ -94,7 +98,8 @@ export const github = async () => {
 };
 
 export const linkedin = async () => {
-  const config = await $fetch('/api/getRuntimeConfig');
+  const config = await $fetch('/api/getRuntimeConfig').catch(err =>
+    import('../config.json'));
   window.open(`https://www.linkedin.com/in/${config.LINKEDIN}/`, '_blank');
   return (
     <Fragment>
@@ -200,9 +205,9 @@ export const echo = async (args) => {
   </Fragment>);
 };
 
-export const whoami = async (args) => {
-  return `${config.ps1_username}`;
-};
+// export const whoami = async (args) => {
+//   return `${config.ps1_username}`;
+// };
 
 export const date = async () => {
   const date = new Date().toString();

@@ -3,7 +3,9 @@ import font from 'figlet/importable-fonts/DOS Rebel';
 import { Fragment } from 'vue/jsx-runtime';
 
 const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Terminal' } = {}) => {
-  const config = await $fetch('/api/getRuntimeConfig');
+
+  const config = await $fetch('/api/getRuntimeConfig').catch(err =>
+    import('../config.json'));
   figlet.parseFont(fontSelect, font);
 
   const bannerText = await figlet.text(
@@ -106,22 +108,22 @@ export const banner = async (args = []) => {
       return;
     }
     switch (arg[0]) {
-      // case 'text': {
-      //   if (!arg[1] || arg[1] === ' ') {
-      //     errorTriggered = '--text';
-      //     return;
-      //   }
-      //   bannerSettings.text = arg[1].trim();
-      //   return;
-      // }
-      case 'font': {
+      case 'text': {
         if (!arg[1] || arg[1] === ' ') {
-          errorTriggered = '--font';
+          errorTriggered = '--text';
           return;
         }
-        bannerSettings.font = arg[1].trim();
+        bannerSettings.text = arg[1].trim();
         return;
       }
+      // case 'font': {
+      //   if (!arg[1] || arg[1] === ' ') {
+      //     errorTriggered = '--font';
+      //     return;
+      //   }
+      //   bannerSettings.font = arg[1].trim();
+      //   return;
+      // }
       case 'set': {
         if (arg[1] === 'false') {
           bannerSettings.reset = true;
@@ -136,28 +138,28 @@ export const banner = async (args = []) => {
     }
   });
 
-  // if (errorTriggered === '--text') {
-  //   return (
-  //     <Fragment>
-  //       <div>
-  //         <span className="whitespace-pre-wrap">{`No text was provided. \nPlease do not use the '--text' option if no text will be provided`}</span>
-  //         <br />
-  //       </div>
-  //     </Fragment>
-  //   );
-  // }
-  if (errorTriggered === '--font') {
-    const fonts = await $fetch('/api/getFonts');
+  if (errorTriggered === '--text') {
     return (
       <Fragment>
         <div>
-          <span className="whitespace-pre-wrap">{`No font was provided. Please select from the following fonts:`}</span>
-          <br /><br />
-          <span>{fonts.join(', ')}</span>
+          <span className="whitespace-pre-wrap">{`No text was provided. \nPlease do not use the '--text' option if no text will be provided`}</span>
+          <br />
         </div>
       </Fragment>
     );
   }
+  // if (errorTriggered === '--font') {
+  //   const fonts = await $fetch('/api/getFonts');
+  //   return (
+  //     <Fragment>
+  //       <div>
+  //         <span className="whitespace-pre-wrap">{`No font was provided. Please select from the following fonts:`}</span>
+  //         <br /><br />
+  //         <span>{fonts.join(', ')}</span>
+  //       </div>
+  //     </Fragment>
+  //   );
+  // }
 
   if (bannerSettings.saveBanner) {
     bannerCookie.value = bannerSettings;

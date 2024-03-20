@@ -1,7 +1,8 @@
 import { Fragment } from "vue/jsx-runtime";
 
 const fetchsum = async () => {
-  const config = await $fetch('/api/getRuntimeConfig');
+  const config = await $fetch('/api/getRuntimeConfig').catch(err =>
+    import('../config.json'));
   return (
     <Fragment>
       <div className='flex flex-col items-start'>
