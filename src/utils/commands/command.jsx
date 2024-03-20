@@ -2,16 +2,6 @@
 import * as commandList from './index';
 import { Fragment } from 'vue/jsx-runtime';
 
-const config = {
-  repo: '',
-  name: 'Will',
-  email: 'contact@email.com',
-  social: {
-    github: 'wSwanepoel199',
-    linkedin: 'wSwanepoel'
-  }
-};
-
 
 export const help = async () => {
   const commands = ['clear', ...Object.keys(commandList)].sort().join(', ');
@@ -30,11 +20,11 @@ export const help = async () => {
 };
 
 export const about = async () => {
-
+  const config = await $fetch('/api/getRuntimeConfig');
   return (
     <Fragment>
       <div className="flex flex-col">
-        <span>{`Hello, I am ${config.name}, and welcome to my portfolio!`}</span>
+        <span>{`Hello, I am ${config.NAME}, and welcome to my portfolio!`}</span>
         <span>{`To learn more about me, try one of the following commands:`}</span>
         <br />
         <div className="ml-4 flex flex-col">
@@ -50,7 +40,8 @@ export const about = async () => {
 };
 
 export const repo = async () => {
-  window.open(`https://github.com/wSwanepoel199/terminalPortfolio`, '_blank');
+  const config = await $fetch('/api/getRuntimeConfig');
+  window.open(config.GITHUB_REPO, '_blank');
   return (
     <Fragment>
       <div>
@@ -70,11 +61,12 @@ export const repo = async () => {
 // };
 
 export const email = async () => {
-  window.open(`mailto:${config.email}`, '_blank');
+  const config = await $fetch('/api/getRuntimeConfig');
+  window.open(`mailto:${config.EMAIL}`, '_blank');
   return (
     <Fragment>
       <div>
-        <span>{`Opening email to:${config.email}...`}</span>
+        <span>{`Opening email to:${config.EMAIL}...`}</span>
       </div>
     </Fragment>
   );
@@ -90,22 +82,24 @@ export const liveterm = async () => {
 };
 
 export const github = async () => {
-  window.open(`https://github.com/${config.social.github}/`, '_blank');
+  const config = await $fetch('/api/getRuntimeConfig');
+  window.open(`https://github.com/${config.GITHUB}/`, '_blank');
   return (
     <Fragment>
       <div>
-        <span>{`Opening ${config.social.github}'s github...`}</span>
+        <span>{`Opening ${config.GITHUB}'s github...`}</span>
       </div>
     </Fragment>
   );
 };
 
 export const linkedin = async () => {
-  window.open(`https://www.linkedin.com/in/${config.social.linkedin}/`, '_blank');
+  const config = await $fetch('/api/getRuntimeConfig');
+  window.open(`https://www.linkedin.com/in/${config.LINKEDIN}/`, '_blank');
   return (
     <Fragment>
       <div>
-        <span>{`Opening ${config.social.linkedin}'s linkedin...`}</span>
+        <span>{`Opening ${config.LINKEDIN}'s linkedin...`}</span>
       </div>
     </Fragment>
   );

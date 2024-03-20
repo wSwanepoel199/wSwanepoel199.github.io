@@ -4,7 +4,7 @@
 // const createThemes = require('tw-colors');
 
 import { createThemes } from "./src/utils/tailwindThemes";
-import themes from "./theme.js";
+import themes from "./src/utils/commands/themes.js";
 
 export default {
   content: [

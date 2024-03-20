@@ -1,4 +1,4 @@
-import themes from '../../../theme';
+import themes from './themes';
 
 export const theme = async (options) => {
   const optionsAvailable = ['--help', '--select'];

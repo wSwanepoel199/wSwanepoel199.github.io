@@ -1,12 +1,9 @@
 import figlet from 'figlet';
 import font from 'figlet/importable-fonts/DOS Rebel';
 import { Fragment } from 'vue/jsx-runtime';
-const config = {
-  repo: ''
-};
 
 const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Terminal' } = {}) => {
-
+  const config = await $fetch('/api/getRuntimeConfig');
   figlet.parseFont(fontSelect, font);
 
   const bannerText = await figlet.text(
@@ -43,7 +40,7 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
         >
           {bannerText}
         </pre>
-        <a className="text-[10px]">{`inpired by Cveinnt's Liveterm`}</a>
+        <sup><a className="text-[10px]">{`inpired by Cveinnt's Liveterm`}</a></sup>
       </div>
       <div
         className="whitespace-pre-wrap text-xs sm:text-sm md:text-base w-fill max-w-full "
@@ -64,7 +61,7 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
           </li>
           <li className='pt-1'>
             {`Type 'repo' or click `}
-            <u><a className="text-light-blue dark:text-dark-blue underline" href={config?.repo} target="_blank">here</a></u>
+            <u><a className="text-light-blue dark:text-dark-blue underline" href={config?.GITHUB_REPO} target="_blank">here</a></u>
             {` for the Github repository.`}
           </li>
         </ul>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, getCurrentInstance } from "vue";
+import { ref } from "vue";
 import { banner } from "~/utils/commands";
 // TODO: continue to expand on features, add observer to main containers to check scroll height and add padding/margin if needed
 const theme = computed(() =>
@@ -20,8 +20,6 @@ const historyRef = ref(0);
 const containerRef = ref();
 
 const history = useState("history");
-const command = useState("command");
-const lastCommandIndex = useState("lastCommandIndex");
 
 const { setCommand, setHistory, setLastCommandIndex, clearHistory } =
   useHistory([]);
