@@ -17,4 +17,7 @@ export default defineNuxtConfig({
       isCustomElement: (tag) => ["renderOutput"].includes(tag),
     },
   },
+  nitro: {
+    preset: "github-pages",
+  },
 });
