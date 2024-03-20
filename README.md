@@ -1,6 +1,6 @@
-# Nuxt 3 Minimal Starter
+# Terminal Portfolio Application
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Built using Nuxtjs. Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
 
@@ -18,6 +18,21 @@ yarn install
 
 # bun
 bun install
+```
+
+Create .env file in root and populate it with the following values:
+
+```.env
+NUXT_ENV_CONFIG_GITHUB_README_URL=""
+NUXT_ENV_CONFIG_TITLE=""
+NUXT_ENV_CONFIG_NAME=""
+NUXT_ENV_CONFIG_GITHUB=""
+NUXT_ENV_CONFIG_LINKEDIN=""
+NUXT_ENV_CONFIG_EMAIL=""
+NUXT_ENV_CONFIG_GITHUB_REPO=""
+NUXT_ENV_CONFIG_GITHUB_REPOSITORIES_URL=""
+NUXT_ENV_CONFIG_RESUME=""
+NUXT_ENV_CONFIG_DONATE_PAYPAL= ""
 ```
 
 ## Development Server
