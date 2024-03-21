@@ -34,7 +34,7 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
           gridTemplateRows: 'minmax(2rem, 20vw) 1fr 5rem'
         }}
       >
-        <pre className={`min-w-max text-[max(0.1rem,2vw)] leading-[normal]`}
+        <pre className={`min-w-max text-[max(0.1ren,1vw)] sm:text-[max(0.1rem,2vw)] leading-[normal]`}
         >
           {bannerText}
         </pre>
