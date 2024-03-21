@@ -16,7 +16,7 @@ export const readme = async () => {
   return (
     <Fragment>
       <div className="whitespace-pre-wrap">
-        <span>{`Opening GitHub README...`}</span>
+        <span>{`Displaying GitHub README...`}</span>
         <br />
         <div innerHTML={result}>
         </div>
