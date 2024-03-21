@@ -31,14 +31,10 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
         id="banner"
         className="whitespace-pre-wrap pt-4"
         style={{
-          gridTemplateRows: 'minmax(2rem, 20vmin) 1fr 5rem'
+          gridTemplateRows: 'minmax(2rem, 20vw) 1fr 5rem'
         }}
       >
-        <pre className={`min-w-max`}
-          style={{
-            fontSize: "max(0.1rem, 2vmin)",
-            lineHeight: 'normal',
-          }}
+        <pre className={`min-w-max text-[max(0.1rem,2vw)] leading-[normal]`}
         >
           {bannerText}
         </pre>
@@ -53,7 +49,7 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
         <ul
           className='list-none text-xs sm:text-sm md:text-base pl-4'>
           <li className='pt-1'>
-            {`Type banner --help to see banner customization options.`}
+            {`Type 'banner --help' to see banner customization options.`}
           </li>
           <li className='pt-1'>
             {`Type 'help' to see the list of available commands.`}
