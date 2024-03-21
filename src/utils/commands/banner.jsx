@@ -29,12 +29,9 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
     <Fragment>
       <div
         id="banner"
-        className="whitespace-pre-wrap pt-4"
-        style={{
-          gridTemplateRows: 'minmax(2rem, 20vw) 1fr 5rem'
-        }}
+        className="pt-4"
       >
-        <pre className={`min-w-max text-[max(0.1rem,2vw)] leading-[normal]`}
+        <pre className={`whitespace-pre-wrap w-max min-w-full text-[1.75vmin] md:text-[2vmin] leading-[normal]`}
         >
           {bannerText}
         </pre>
