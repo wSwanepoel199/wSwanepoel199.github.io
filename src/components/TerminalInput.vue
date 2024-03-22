@@ -107,6 +107,15 @@ onUpdated(() => {
 
   if (commandRef.value) observer.observe(commandRef.value);
   containerRef.scrollTo(0, containerRef.scrollHeight);
+  if (inputRef.value) {
+    const el = inputRef.value;
+    const elLabel = labelRef.value;
+    const elLabelEndPoint =
+      endRef.value.endRef || elLabel.children[0].children[3];
+
+    setElDimentions(el);
+    setCommandWrap(el, elLabelEndPoint);
+  }
 });
 
 const onChange = (e) => {

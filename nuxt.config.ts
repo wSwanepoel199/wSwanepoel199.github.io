@@ -11,7 +11,7 @@ export default defineNuxtConfig({
       cdnURL: "",
     },
   },
-  css: ["~/assets/css/main.css"],
+  css: ["~/assets/css/main.css", "~/assets/css/fonts.css"],
   postcss: {
     plugins: {
       tailwindcss: {},
