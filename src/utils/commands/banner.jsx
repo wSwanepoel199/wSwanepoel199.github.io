@@ -12,8 +12,8 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
     text?.replace(/\\n/g, '\n'),
     {
       font: fontSelect,
-      // horizontalLayout: "fitted",
-      verticalLayout: "fitted",
+      horizontalLayout: "full",
+      verticalLayout: "controlled smushing",
     },
     function (err, data) {
       if (err) {
