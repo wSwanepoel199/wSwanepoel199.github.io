@@ -1,6 +1,5 @@
 <script setup>
 import { shell, checkCommandExists, handleTabComplete } from "~/utils";
-import { banner } from "~/utils/commands";
 
 const props = defineProps({
   containerRef: {
@@ -76,7 +75,6 @@ let observer;
 
 onMounted(() => {
   observer = new ResizeObserver((entries) => {
-    console.log(entries);
     entries.forEach(async (entry) => {
       if (inputRef.value) {
         const el = inputRef.value;
