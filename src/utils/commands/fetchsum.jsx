@@ -31,8 +31,8 @@ const fetchsum = async () => {
             style={{
               // gridTemplateRows: 'minmax(1rem, 10vmin) 1fr 5rem'
             }}>
-            <pre
-              className='h-max w-max text-[3vw] md:text-md lg:text-xl leading-[normal] md:leading-[normal] lg:leading-[normal] '
+            <div
+              className='whitespace-pre-wrap h-max w-max max-w-full text-[3vw] md:text-md lg:text-xl leading-[normal] md:leading-[normal] lg:leading-[normal] tracking-tighter'
             >{`
    ___________________________
   |  _______________________  |
@@ -48,10 +48,10 @@ const fetchsum = async () => {
 |  _ _ _                    | |
 |  o o o          [-------] | /
 |___________________________|/
-   ________________________
+   _______________________
   //`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/ /
  / /`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`/`}<a style="text-decoration: underline">-</a>{`//
-/_______________________/`}</pre>
+/______________________/`}</div>
           </div>
 
           <div className="whitespace-pre-wrap w-full sm:w-auto mx-auto md:mx-4 my-4 sm:my-auto flex-grow-1">
