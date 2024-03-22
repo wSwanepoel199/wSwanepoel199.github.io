@@ -9,7 +9,7 @@ useHead({
     { rel: "icon", type: "image/png", href: "favicon.png" },
     {
       rel: "preload",
-      href: "_nuxt/fonts/HackNerdFont/HackNerdFontMono-Regular.ttf",
+      href: "/fonts/HackNerdFont/HackNerdFontMono-Regular.ttf",
       as: "font",
       type: "font/ttf",
       crossorigin: true,
