@@ -76,6 +76,7 @@ let observer;
 
 onMounted(() => {
   observer = new ResizeObserver((entries) => {
+    console.log(entries);
     entries.forEach(async (entry) => {
       if (inputRef.value) {
         const el = inputRef.value;
@@ -98,14 +99,16 @@ onMounted(() => {
     setElDimentions(el);
     setCommandWrap(el, elLabelEndPoint);
   }
-
   if (commandRef.value) observer.observe(commandRef.value);
+  if (endRef.value.wrapperRef) observer.observe(endRef.value.wrapperRef);
 });
 
 onUpdated(() => {
   commandCheckRef.value = checkCommandExists(terminalModal.value);
 
   if (commandRef.value) observer.observe(commandRef.value);
+  if (endRef.value.wrapperRef) observer.observe(endRef.value.wrapperRef);
+
   containerRef.scrollTo(0, containerRef.scrollHeight);
   if (inputRef.value) {
     const el = inputRef.value;

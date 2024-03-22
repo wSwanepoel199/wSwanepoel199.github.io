@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  *,
+  ::before,
+  ::after {
+    font-family: "Hack NF Mono";
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

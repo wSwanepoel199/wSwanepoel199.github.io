@@ -7,13 +7,13 @@ useHead({
   charset: "utf-8",
   link: [
     { rel: "icon", type: "image/png", href: "favicon.png" },
-    {
-      rel: "preload",
-      href: "/fonts/HackNerdFont/HackNerdFontMono-Regular.ttf",
-      as: "font",
-      type: "font/ttf",
-      crossorigin: true,
-    },
+    // {
+    //   rel: "preload",
+    //   href: "/fonts/HackNerdFont/HackNerdFontMono-Regular.ttf",
+    //   as: "font",
+    //   type: "font/ttf",
+    //   crossorigin: true,
+    // },
   ],
 });
 </script>
@@ -28,7 +28,3 @@ useHead({
     </div>
   </div>
 </template>
-
-<style>
-@import url("~/assets/css/fonts.css");
-</style>

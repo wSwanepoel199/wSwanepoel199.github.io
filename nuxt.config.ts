@@ -18,7 +18,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@nuxtjs/tailwindcss"],
   vue: {
     compilerOptions: {
       isCustomElement: (tag) => ["renderOutput"].includes(tag),
@@ -30,4 +29,5 @@ export default defineNuxtConfig({
   webpack: {
     optimizeCSS: true,
   },
+  modules: ["@nuxtjs/tailwindcss"],
 });
