@@ -8,8 +8,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFont-Regular.ttf")
-    format("truetype");
+  src: url("/fonts/HackNerdFont/HackNerdFont-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -17,8 +16,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFont-Bold.ttf")
-    format("truetype");
+  src: url("/fonts/HackNerdFont/HackNerdFont-Bold.ttf") format("truetype");
 }
 
 @font-face {
@@ -26,8 +24,7 @@
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFont-Italic.ttf")
-    format("truetype");
+  src: url("/fonts/HackNerdFont/HackNerdFont-Italic.ttf") format("truetype");
 }
 
 @font-face {
@@ -35,8 +32,7 @@
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFont-BoldItalic.ttf")
-    format("truetype");
+  src: url("/fonts/HackNerdFont/HackNerdFont-BoldItalic.ttf") format("truetype");
 }
 
 /* Hack NF Mono */
@@ -45,7 +41,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFontMono-Regular.ttf")
+  src: url("/fonts/HackNerdFont/HackNerdFontMono-Regular.ttf")
     format("truetype");
 }
 
@@ -54,8 +50,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFontMono-Bold.ttf")
-    format("truetype");
+  src: url("/fonts/HackNerdFont/HackNerdFontMono-Bold.ttf") format("truetype");
 }
 
 @font-face {
@@ -63,8 +58,7 @@
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFontMono-Italic.ttf")
-    format("truetype");
+  src: url("/fonts/HackNerdFont/HackNerdFontMono-Italic.ttf") format("truetype");
 }
 
 @font-face {
@@ -72,7 +66,7 @@
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFontMono-BoldItalic.ttf")
+  src: url("/fonts/HackNerdFont/HackNerdFontMono-BoldItalic.ttf")
     format("truetype");
 }
 
@@ -82,7 +76,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFontPropo-Regular.ttf")
+  src: url("/fonts/HackNerdFont/HackNerdFontPropo-Regular.ttf")
     format("truetype");
 }
 
@@ -91,8 +85,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFontPropo-Bold.ttf")
-    format("truetype");
+  src: url("/fonts/HackNerdFont/HackNerdFontPropo-Bold.ttf") format("truetype");
 }
 
 @font-face {
@@ -100,7 +93,7 @@
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFontPropo-Italic.ttf")
+  src: url("/fonts/HackNerdFont/HackNerdFontPropo-Italic.ttf")
     format("truetype");
 }
 
@@ -109,6 +102,6 @@
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url("~/assets/fonts/HackNerdFont/HackNerdFontPropo-BoldItalic.ttf")
+  src: url("/fonts/HackNerdFont/HackNerdFontPropo-BoldItalic.ttf")
     format("truetype");
 }

@@ -27,4 +27,7 @@ export default defineNuxtConfig({
   nitro: {
     preset: "github-pages",
   },
+  webpack: {
+    optimizeCSS: true,
+  },
 });

@@ -9,12 +9,11 @@ useHead({
     { rel: "icon", type: "image/png", href: "favicon.png" },
     {
       rel: "preload",
-      href: "_nuxt/assets/fonts/HackNerdFont/HackNerdFontMono-Regular.ttf",
+      href: "_nuxt/fonts/HackNerdFont/HackNerdFontMono-Regular.ttf",
       as: "font",
       type: "font/ttf",
       crossorigin: true,
     },
-    { rel: "stylesheet", type: "text/css", href: "_nuxt/assets/css/fonts.css" },
   ],
 });
 </script>
@@ -29,3 +28,7 @@ useHead({
     </div>
   </div>
 </template>
+
+<style>
+@import url("~/assets/css/fonts.css");
+</style>
