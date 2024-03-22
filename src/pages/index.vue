@@ -83,7 +83,7 @@ const screenClicked = (e) => {
           ref="containerRef"
           class="h-full scrollbar-thin scrollbar-webkit overflow-y-auto overflow-x-hidden"
         >
-          <div class="max-w-full xl:max-w-2xl">
+          <div class="max-w-full xl:max-w-4xl">
             <TerminalHistory :key="historyRef" />
             <TerminalInput
               v-if="containerRef"
