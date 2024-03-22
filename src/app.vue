@@ -1,6 +1,6 @@
 <script setup>
 useHead({
-  title: "Will Portfolio Terminal",
+  title: "Willem's Portfolio Terminal",
   description:
     "A portfolio website designed around the look of a terminal, build using nuxt and vue",
   viewport: "width=device-width,initial-scale=1.0",
