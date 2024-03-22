@@ -13,7 +13,7 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
     {
       font: fontSelect,
       // horizontalLayout: "fitted",
-      // verticalLayout: "fitted",
+      verticalLayout: "fitted",
     },
     function (err, data) {
       if (err) {
@@ -31,7 +31,7 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
         id="banner"
         className="pt-4"
       >
-        <pre className={`w-max min-w-full text-[1.75vw] md:text-[max(0.5rem,2vw)] leading-[normal]`}
+        <pre className={`w-full leading-[normal] md:leading-[normal] lg:leading-[normal] text-[40%] md:text-sm lg:text-base font-[monospace] `}
         >
           {bannerText}
         </pre>
