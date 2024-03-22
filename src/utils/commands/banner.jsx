@@ -31,7 +31,7 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
         id="banner"
         className="pt-4"
       >
-        <pre className={`w-max min-w-full text-[1.75vw] md:text-[2vw] leading-[normal]`}
+        <pre className={`w-max min-w-full text-[1.75vw] md:text-[max(0.5rem,2vw)] leading-[normal]`}
         >
           {bannerText}
         </pre>
