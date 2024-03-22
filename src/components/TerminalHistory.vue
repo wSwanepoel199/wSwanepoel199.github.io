@@ -47,7 +47,7 @@ onMounted(() => {
 
 onUpdated(() => {
   if (historyRef.value) observer.observe(historyRef.value);
-  if (endRef.value.wrapperRef) observer.observe(endRef.value.wrapperRef);
+  if (endRef.value?.wrapperRef) observer.observe(endRef.value.wrapperRef);
 
   if (!divFormatted.value && inputRef.value) {
     inputRef.value.forEach((el, index) => {

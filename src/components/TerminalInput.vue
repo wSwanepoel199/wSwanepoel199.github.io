@@ -98,14 +98,14 @@ onMounted(() => {
     setCommandWrap(el, elLabelEndPoint);
   }
   if (commandRef.value) observer.observe(commandRef.value);
-  if (endRef.value.wrapperRef) observer.observe(endRef.value.wrapperRef);
+  if (endRef.value?.wrapperRef) observer.observe(endRef.value.wrapperRef);
 });
 
 onUpdated(() => {
   commandCheckRef.value = checkCommandExists(terminalModal.value);
 
   if (commandRef.value) observer.observe(commandRef.value);
-  if (endRef.value.wrapperRef) observer.observe(endRef.value.wrapperRef);
+  if (endRef.value?.wrapperRef) observer.observe(endRef.value.wrapperRef);
 
   containerRef.scrollTo(0, containerRef.scrollHeight);
   if (inputRef.value) {
