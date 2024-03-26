@@ -1,4 +1,6 @@
 <script setup>
+const origin = window?.origin ? window.origin + "/" : "/";
+
 useHead({
   title: "Willem's Portfolio Terminal",
   description:
@@ -7,7 +9,7 @@ useHead({
   charset: "utf-8",
   link: [
     { rel: "icon", type: "image/png", href: "favicon.png" },
-    { rel: "canonical", href: window.origin + "/" },
+    { rel: "canonical", href: origin },
     // {
     //   rel: "preload",
     //   href: "/fonts/HackNerdFont/HackNerdFontMono-Regular.ttf",
