@@ -6,8 +6,8 @@ export default defineNuxtConfig({
   rootDir: "./",
   runtimeConfig: {
     app: {
-      baseURL: "",
-      cdnURL: "",
+      baseURL: "/",
+      cdnURL: "/_nuxt/",
     },
   },
   css: ["~/assets/css/main.css", "~/assets/css/fonts.css"],
@@ -21,9 +21,6 @@ export default defineNuxtConfig({
     compilerOptions: {
       isCustomElement: (tag) => ["renderOutput"].includes(tag),
     },
-  },
-  nitro: {
-    preset: "github-pages",
   },
   webpack: {
     optimizeCSS: true,
