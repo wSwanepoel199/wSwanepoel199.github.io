@@ -17,9 +17,9 @@ jobs:
           cache: "npm"
       # Pick your own package manager and build script
       - run: npm install
-      - run: echo 'baseUrl= ${{ vars.NUXT_APP_BASE_URL }}'
-      - run: echo 'cdnUrl= ${{ vars.NUXT_APP_CDN_URL }}'
-      - run: npm run generate --dotenv "$GITHUB_ENV"
+      - run: echo 'baseUrl= "$vars.NUXT_APP_BASE_URL"'
+      - run: echo 'cdnUrl= "$vars.NUXT_APP_CDN_URL"'
+      - run: npm run generate
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
