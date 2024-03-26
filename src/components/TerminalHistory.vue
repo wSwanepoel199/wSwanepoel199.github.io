@@ -1,4 +1,4 @@
-<script setup lang="jsx">
+<script setup>
 const history = useState("history");
 const labelRef = ref();
 const inputRef = ref();
@@ -75,7 +75,7 @@ onUnmounted(() => {
   >
     <section>
       <div v-for="entry in history" :key="entry">
-        <div classList="flex flex-row" v-if="entry.id > 0 || entry.command">
+        <div classList="flex flex-row" v-if="entry.id >= 1 || entry.command">
           <div
             ref="labelRef"
             id="label"
@@ -100,10 +100,3 @@ onUnmounted(() => {
     </section>
   </div>
 </template>
-
-<style>
-.shrunk {
-  margin-top: 20px;
-  text-indent: 0;
-}
-</style>

@@ -48,7 +48,7 @@ onUpdated(() => {
   // }
 
   if (containerRef.value.offsetHeight <= containerRef.value.scrollHeight) {
-    containerRef.value.style.paddingRight = "10px";
+    containerRef.value.style.paddingRight = "5px";
     containerRef.value.scrollTo(0, containerRef.value.scrollHeight);
   } else if (containerRef.value.style.paddingRight) {
     containerRef.value.style.removeProperty("paddingRight");
