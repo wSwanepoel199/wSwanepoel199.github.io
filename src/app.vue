@@ -2,7 +2,7 @@
 const origin = window?.location
   ? window.location.host + window.location.pathname
   : "/";
-
+console.log(origin);
 useHead({
   title: "Willem's Portfolio Terminal",
   description:
