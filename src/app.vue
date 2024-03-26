@@ -1,5 +1,7 @@
 <script setup>
-const origin = window?.origin ? window.origin + "/" : "/";
+const origin = window?.location
+  ? window.location.host + window.location.pathname
+  : "/";
 
 useHead({
   title: "Willem's Portfolio Terminal",
