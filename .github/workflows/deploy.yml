@@ -17,7 +17,8 @@ jobs:
           cache: "npm"
       # Pick your own package manager and build script
       - run: npm install
-      - run: |
+      - name: Check Variables
+        run: |
           echo "baseUrl : $NUXT_APP_BASE_URL"
           echo "cdnUrl : $NUXT_APP_CDN_URL"
         env:
