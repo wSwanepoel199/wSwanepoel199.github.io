@@ -14,6 +14,8 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
       font: fontSelect,
       // horizontalLayout: "full",
       verticalLayout: "controlled smushing",
+      width: 90,
+      whitespaceBreak: true,
     },
     function (err, data) {
       if (err) {
@@ -31,10 +33,10 @@ const bannerGen = async ({ fontSelect = 'DOS Rebel', text = 'Portfolio\n Termina
         id="banner"
         className="pt-4"
       >
-        <div className={`whitespace-pre-wrap leading-[normal] md:leading-[normal] lg:leading-[normal] text-[1.5vw] lg:text-sm`}
+        <pre className={`leading-[normal] md:leading-[normal] lg:leading-[normal] text-[1.5vw] lg:text-sm font-['Hack_NF_Mono']`}
         >
           {bannerText}
-        </div>
+        </pre>
         <sup><a className="text-[10px]">{`inpired by Cveinnt's Liveterm`}</a></sup>
       </div>
       <div

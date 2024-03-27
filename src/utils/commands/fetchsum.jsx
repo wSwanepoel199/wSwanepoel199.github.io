@@ -34,7 +34,7 @@ const fetchsum = async () => {
               // gridTemplateRows: 'minmax(1rem, 10vmin) 1fr 5rem'
             }}>
             <div
-              className='whitespace-pre-wrap text-[max(1vmin,2.5vmin)] sm:text-[3wmin] md:text-base lg:text-xl leading-[normal] md:leading-[normal] lg:leading-[normal] tracking-tighter'
+              className={`whitespace-pre-wrap min-w-max text-[max(1vmin,2.5vmin)] sm:text-[3wmin] md:text-base lg:text-xl leading-[normal] md:leading-[normal] lg:leading-[normal] tracking-tighter font-['Hack_NF_Mono']`}
             >{`
    ___________________________
   |  _______________________  |
