@@ -2,7 +2,6 @@
 const origin = window?.location
   ? window.location.host + window.location.pathname
   : "/";
-console.log(origin);
 useHead({
   title: "Willem's Portfolio Terminal",
   description:
@@ -21,15 +20,39 @@ useHead({
     // },
   ],
 });
+// const { progress, isLoading, start, finish, clear } = useLoadingIndicator({
+//   duration: 2000,
+//   throttle: 200,
+// });
+// const loading = ref(false);
+// const triggerLoading = () => {
+//   if (!loading.value) {
+//     console.log(loading.value, "loading");
+//     start();
+//     loading.value = true;
+//   } else {
+//     console.log(loading.value, "loading");
+//     finish();
+//     loading.value = false;
+//   }
+//   console.log(progress, isLoading);
+// };
+// onUpdated(() => {
+//   console.log(progress, isLoading);
+// });
 </script>
 
 <template>
-  <div>
-    <NuxtLoadingIndicator class="text-light-green dark:text-dark-green" />
-    <div
-      class="max-w-full h-dvh text-light-foreground dark:text-dark-foreground text-sm md:min-w-full md:text-base"
+  <div
+    class="w-dvw h-dvh text-light-foreground dark:text-dark-foreground text-sm md:min-w-full md:text-base"
+  >
+    <!-- <button
+      @click="triggerLoading"
+      class="bg-light-background dark:bg-dark-background m-8"
     >
-      <NuxtPage />
-    </div>
+      Trigger Load
+    </button>
+    <LoadingBar /> -->
+    <NuxtPage />
   </div>
 </template>

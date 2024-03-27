@@ -92,6 +92,7 @@ const screenClicked = (e) => {
             :setCommand="setCommand"
             :setLastCommandIndex="setLastCommandIndex"
           />
+          <LoadingBar :duration="4000" :throttle="200" />
         </div>
       </div>
     </div>

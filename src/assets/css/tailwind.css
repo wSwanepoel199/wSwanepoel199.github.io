@@ -42,3 +42,9 @@
     background: hsl(var(--twc-dark-yellow) / 0.8);
   }
 }
+
+@layer components {
+  body {
+    @apply bg-light-background dark:bg-dark-background;
+  }
+}

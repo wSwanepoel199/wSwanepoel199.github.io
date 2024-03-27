@@ -1,13 +1,17 @@
 import { Fragment } from "vue/jsx-runtime";
 import markdownit from 'markdown-it';
-import axios from "axios";
+import config from '../config.json';
 
 
 export const readme = async () => {
-  const config = await import('../config.json');
-  const data = await $fetch('/api/getReadme')
-    .catch(err =>
-      axios.get(config.GITHUB_README_URL).then(res => res.data));
+
+  const data = await GET({
+    url: config.GITHUB_README_URL,
+    headers: {
+      'Accept': 'application/vnd.github+json',
+    },
+  });
+
   const md = markdownit('commonmark', {
     linkify: true,
     typographer: true,
@@ -26,10 +30,13 @@ export const readme = async () => {
 };
 
 export const projects = async () => {
-  const config = await import('../config.json');
-  const data = await $fetch('/api/getProjects')
-    .catch(err =>
-      axios.get(config.GITHUB_REPOSITORIES_URL).then(res => res.data));
+
+  const data = await GET({
+    url: config.GITHUB_REPOSITORIES_URL,
+    headers: {
+      'Accept': 'application/vnd.github+json',
+    },
+  });
 
   return (
     <Fragment>
