@@ -42,16 +42,18 @@ export const projects = async () => {
     <Fragment>
       <div>
         <span className='text-light-foreground dark:text-dark-foreground'>GitHub Projects: </span>
-        <ul>
-          {data.map((project) => {
-            return (
-              <li>
-                <span className='text-light-foreground dark:text-dark-foreground '>
-                  {project.name} - <a className="text-light-blue dark:text-dark-blue underline flex-grow-0" href={project.html_url} target="_blank">{project.html_url}</a></span>
-              </li>
-            );
-          })}
-        </ul>
+        <table >
+          <tbody >
+            {data.map((project) => {
+              return (
+                <tr className={`flex flex-col sm:flex-row mt-4`}>
+                  <td className={`text-left align-top w-full sm:w-1/3 break-all text-pretty`}>{project.name}</td>
+                  <td className={`text-left align-top w-full sm:w-full`}>- <a className="text-light-blue dark:text-dark-blue underline break-words break-all text-wrap" href={project.html_url} target="_blank">{project.html_url}</a></td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </Fragment>
   );
