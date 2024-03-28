@@ -1,3 +1,5 @@
+import { ReactiveEffect } from "vue";
+
 export default defineComponent({
   name: "LoadingBar",
   props: {
@@ -26,7 +28,7 @@ export default defineComponent({
       required: false,
     },
     containerRef: {
-      type: HTMLElement,
+      type: Object,
       required: false,
     },
   },
