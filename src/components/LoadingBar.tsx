@@ -36,9 +36,6 @@ export default defineComponent({
     const barLoader = ref(undefined);
     const barBackground = ref(undefined);
 
-    onMounted(() => {
-      console.log(barContainer, barLoader, barBackground);
-    });
     const percentage = computed(
       () => Math.round((progress.value + Number.EPSILON) * 100) / 100
     );
