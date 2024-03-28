@@ -130,9 +130,9 @@ const onSubmit = async (e) => {
   if (e.key === "Enter" || e.keyCode === 13) {
     setLastCommandIndex(0);
     await shell(command.value, setHistory, clearHistory, setCommand);
-    containerRef.scrollTo(0, containerRef.scrollHeight);
   }
   terminalModal.value = command.value;
+  containerRef.scrollTo(0, containerRef.scrollHeight);
 };
 
 const onCtrl = async (e) => {
@@ -224,5 +224,6 @@ defineExpose({
       >
       </textarea>
     </section>
+    <LoadingBar :duration="2000" :throttle="200" :containerRef="containerRef" />
   </div>
 </template>

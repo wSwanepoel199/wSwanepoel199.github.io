@@ -25,6 +25,10 @@ export default defineComponent({
       ) => number,
       required: false,
     },
+    containerRef: {
+      type: HTMLElement,
+      required: false,
+    },
   },
   setup: (props) => {
     const { progress, isLoading } = useLoadingIndicator({
@@ -32,31 +36,43 @@ export default defineComponent({
       throttle: props.throttle,
       estimatedProgress: props.estimatedProgress,
     });
-    const barContainer = ref(undefined);
-    const barLoader = ref(undefined);
-    const barBackground = ref(undefined);
+
+    const containerRefScrollHeight = reactive({
+      mountedHeight: 0,
+      currentHeight: 0,
+    });
 
     const percentage = computed(
       () => Math.round((progress.value + Number.EPSILON) * 100) / 100
     );
 
+    onMounted(() => {
+      if (props?.containerRef) {
+        containerRefScrollHeight.mountedHeight =
+          props.containerRef.scrollHeight;
+      }
+    });
+
     onUpdated(() => {
-      if (barContainer.value) {
-        barContainer.value.focus();
+      if (
+        props?.containerRef &&
+        containerRefScrollHeight.currentHeight !==
+          containerRefScrollHeight.mountedHeight
+      ) {
+        containerRefScrollHeight.currentHeight =
+          containerRefScrollHeight.mountedHeight;
+        props.containerRef.scrollTo(0, props.containerRef.scrollHeight);
       }
     });
 
     return () => (
       <div
-        ref={barContainer}
-        class={`flex flex-row flex-nowrap justify-center w-full ${
-          isLoading.value ? `` : `hidden`
-        }`}
+        class={`flex-row flex-nowrap justify-center w-full`}
+        style={`display: ${isLoading.value ? `flex` : `none`};`}
       >
         <p class={`pl-2`}>{`[`}</p>
         <div class={`relative w-full flex flex-nowrap`}>
           <div
-            ref={barLoader}
             class={`overflow-hidden z-10 absolute left-0 top-0 ${props.color}`}
             style={`width: ${percentage.value}%;`}
             // style={`width: ${50}%; background: ${props.color};`}
@@ -64,7 +80,6 @@ export default defineComponent({
             test
           </div>
           <div
-            ref={barBackground}
             class={`bar-background h-[${props.height}px] w-full relative top-0`}
           ></div>
         </div>

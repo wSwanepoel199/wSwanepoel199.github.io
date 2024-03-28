@@ -71,10 +71,10 @@ const screenClicked = (e) => {
 <template>
   <main
     class="w-full h-full bg-light-background dark:bg-dark-background p-1 sm:p-2"
+    @click="screenClicked"
   >
     <div
-      class="h-full border-2 rounded border-light-yellow dark:border-dark-yellow overflow-hidden p-2 sm:p-3 md:p-5"
-      @click="screenClicked"
+      class="h-full border-2 rounded border-light-yellow dark:border-dark-yellow p-2 sm:p-3 md:p-5"
     >
       <div
         ref="containerRef"
@@ -92,7 +92,6 @@ const screenClicked = (e) => {
             :setCommand="setCommand"
             :setLastCommandIndex="setLastCommandIndex"
           />
-          <LoadingBar :duration="2000" :throttle="200" />
         </div>
       </div>
     </div>
