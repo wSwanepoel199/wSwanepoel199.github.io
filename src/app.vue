@@ -46,6 +46,11 @@ useHead({
   <div
     class="w-dvw h-dvh text-light-foreground dark:text-dark-foreground text-sm md:min-w-full md:text-base"
   >
-    <NuxtPage />
+    <Suspense>
+      <NuxtPage />
+      <template #fallback>
+        <LoadingBar />
+      </template>
+    </Suspense>
   </div>
 </template>
