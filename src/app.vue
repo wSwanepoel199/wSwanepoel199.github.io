@@ -46,13 +46,6 @@ useHead({
   <div
     class="w-dvw h-dvh text-light-foreground dark:text-dark-foreground text-sm md:min-w-full md:text-base"
   >
-    <!-- <button
-      @click="triggerLoading"
-      class="bg-light-background dark:bg-dark-background m-8"
-    >
-      Trigger Load
-    </button>
-    <LoadingBar /> -->
     <NuxtPage />
   </div>
 </template>

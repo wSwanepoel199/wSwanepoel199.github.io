@@ -8,43 +8,49 @@
   ::after {
     font-family: "Hack NF Mono";
   }
-}
 
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
 
-::-webkit-scrollbar-track {
-  background: hsl(var(--twc-light-background) / 0.5);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--twc-light-foreground) / 0.5);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--twc-light-yellow) / 0.8);
-}
-
-@media (prefers-color-scheme: dark) {
   ::-webkit-scrollbar-track {
-    background: hsl(var(--twc-dark-background) / 0.5);
+    background: hsl(var(--twc-light-background) / 0.5);
+    border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--twc-dark-foreground) / 0.8);
+    background: hsl(var(--twc-light-foreground) / 0.5);
+    border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--twc-dark-yellow) / 0.8);
+    background: hsl(var(--twc-light-yellow) / 0.8);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    ::-webkit-scrollbar-track {
+      background: hsl(var(--twc-dark-background) / 0.5);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: hsl(var(--twc-dark-foreground) / 0.8);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: hsl(var(--twc-dark-yellow) / 0.8);
+    }
   }
 }
 
 @layer components {
   body {
     @apply bg-light-background dark:bg-dark-background;
+  }
+
+  .bar-background:empty::after {
+    content: "";
+    transform: translateY(-50%);
+    @apply absolute left-0 top-1/2 bg-gradient-to-r w-full h-[2px] from-light-foreground from-50% to-transparent to-50% dark:from-dark-foreground dark:from-50% dark:to-transparent dark:to-50% bg-[length:1rem] z-0;
   }
 }

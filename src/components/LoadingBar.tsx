@@ -16,7 +16,7 @@ export default defineComponent({
     color: {
       type: [String, Boolean],
       default:
-        "repeating-linear-gradient(to right,#00dc82 0%,#34cdfe 50%,#0047e1 100%)",
+        "text-light-foreground dark:text-dark-foreground bg-light-foreground dark:bg-dark-foreground",
     },
     estimatedProgress: {
       type: Function as unknown as () => (
@@ -26,9 +26,7 @@ export default defineComponent({
       required: false,
     },
   },
-  render: (props: any) => {
-    // console.log("duration", props.duration);
-    // console.log("throttle", props.throttle);
+  setup: (props) => {
     const { progress, isLoading } = useLoadingIndicator({
       duration: props.duration,
       throttle: props.throttle,
@@ -36,22 +34,38 @@ export default defineComponent({
     });
     const barContainer = ref(undefined);
     const barLoader = ref(undefined);
+    const barBackground = ref(undefined);
 
-    return (
+    onMounted(() => {
+      console.log(barContainer, barLoader, barBackground);
+    });
+    const percentage = computed(
+      () => Math.round((progress.value + Number.EPSILON) * 100) / 100
+    );
+
+    return () => (
       <div
         ref={barContainer}
-        class={`w-full ${isLoading.value ? `` : `hidden`}`}
+        class={`flex flex-row flex-nowrap justify-center w-full ${
+          isLoading.value ? `` : `hidden`
+        }`}
       >
-        <div
-          ref={barLoader}
-          class={`h-[${props.height}px]`}
-          style={{
-            width: `${progress.value}%`,
-            background: props.color,
-          }}
-        >
-          Loading Bar Test...
+        <p class={`pl-2`}>{`[`}</p>
+        <div class={`relative w-full flex flex-nowrap`}>
+          <div
+            ref={barLoader}
+            class={`overflow-hidden z-10 absolute left-0 top-0 ${props.color}`}
+            style={`width: ${percentage.value}%;`}
+            // style={`width: ${50}%; background: ${props.color};`}
+          >
+            test
+          </div>
+          <div
+            ref={barBackground}
+            class={`bar-background h-[${props.height}px] w-full relative top-0`}
+          ></div>
         </div>
+        <p class={`min-w-20`}>{`] ${percentage.value}%`}</p>
       </div>
     );
   },
