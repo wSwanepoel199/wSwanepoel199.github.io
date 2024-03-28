@@ -10,6 +10,15 @@ export const GET = (args) => {
     method: "GET",
     headers: args.headers,
     onDownloadProgress(progressEvent) {
+      const { event } = progressEvent;
+      let completionPercentage;
+      if (event.lengthComputable) {
+        completionPercentage = event.loaded / event.total * 100;
+      }
+      completionPercentage = event.timeStamp / event.loaded * 100;
+      useLoadingIndicator({
+        estimatedProgress: (2 / Math.PI * 100) * Math.atan(completionPercentage / 50)
+      });
       console.log(progressEvent);
       // progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
       console.log(progressEvent.event);
