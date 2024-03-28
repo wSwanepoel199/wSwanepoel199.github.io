@@ -40,6 +40,12 @@ export default defineComponent({
       () => Math.round((progress.value + Number.EPSILON) * 100) / 100
     );
 
+    onUpdated(() => {
+      if (barContainer.value) {
+        barContainer.value.focus();
+      }
+    });
+
     return () => (
       <div
         ref={barContainer}
